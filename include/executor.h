@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:38:12 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/05 17:40:06 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/04/05 22:43:03 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/04/05 22:45:30 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av, char **ev)
-{
-	// Falta contenido... :|
-	return (0);
-}
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
+
+// Falta contenido... :D
+
+#endif
