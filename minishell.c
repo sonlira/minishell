@@ -6,13 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/05 22:51:19 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:13:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-
-int	main(int ac, char **av, char **ev)
+// int ac, char **av, char **ev
+int	main(void)
 {
 	// Falta contenido... :|
 	return (0);

@@ -6,7 +6,63 @@
 #    By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 17:35:09 by abaldelo          #+#    #+#              #
-#    Updated: 2025/04/05 17:35:10 by abaldelo         ###   ########.fr        #
+#    Updated: 2025/04/19 16:46:41 by abaldelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME		= minishell
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror -Iinclude -g
+
+SRC_DIR		= src
+OBJ_DIR		= obj
+INC_DIR		= include
+MAIN		= minishell.c
+GLOBAL_H	= minishell.h
+
+LIBFT_DIR	= libft
+LIBFT_A		= $(LIBFT_DIR)/libft.a
+
+# Encuentra todos los archivos .c en src/ y subcarpetas 
+# Reemplazar una vez terminado el proyecto (no está permitido 😞)
+SRCS		= $(MAIN) $(shell find $(SRC_DIR) -name "*.c")
+OBJS		= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+
+all:  $(LIBFT_A) $(NAME)
+
+$(LIBFT_A):
+	@echo "📚 Compilando libft..."
+	@$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $^ -o $@
+	@echo "✅ Compilación completa."
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@echo "🛠️  Compilando $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@echo "🧹 Objetos eliminados."
+
+fclean: clean
+	@rm -f $(NAME)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
+	@echo "🧨 Binario eliminado."
+
+norm:
+	@echo "Checking norminette..."
+	@OUTPUT=$$(norminette $(MAIN) $(GLOBAL_H) $(SRC_DIR)/ $(INC_DIR)/); \
+	echo "$$OUTPUT" | grep -v "OK!" || true; \
+	if echo "$$OUTPUT" | grep -q "Error:"; then \
+		echo "❌ Norminette found errors."; \
+	else \
+		echo "✅ Norma OK!"; \
+	fi
+
+re: fclean all
+
+.PHONY: all clean fclean re
