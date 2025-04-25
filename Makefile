@@ -17,8 +17,6 @@ CFLAGS		= -Wall -Wextra -Werror -Iinclude -g
 SRC_DIR		= src
 OBJ_DIR		= obj
 INC_DIR		= include
-MAIN		= minishell.c
-GLOBAL_H	= minishell.h
 
 LIBFT_DIR	= libft
 LIBFT_A		= $(LIBFT_DIR)/libft.a
@@ -28,7 +26,7 @@ LIBS 		= -lreadline
 
 # Encuentra todos los archivos .c en src/ y subcarpetas 
 # Reemplazar una vez terminado el proyecto (no está permitido 😞)
-SRCS		= $(MAIN) $(shell find $(SRC_DIR) -name "*.c")
+SRCS		= $(shell find $(SRC_DIR) -name "*.c")
 OBJS		= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 all:  $(LIBFT_A) $(NAME)
@@ -38,7 +36,7 @@ $(LIBFT_A):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+	@$(CC) $(CFLAGS) $^ -o $@ $(LIBS) $(LIBFT_A)
 	@echo "✅ Compilación completa."
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -58,7 +56,7 @@ fclean: clean
 
 norm:
 	@echo "Checking norminette..."
-	@OUTPUT=$$(norminette $(MAIN) $(GLOBAL_H) $(SRC_DIR)/ $(INC_DIR)/); \
+	@OUTPUT=$$(norminette $(SRC_DIR)/ $(INC_DIR)/); \
 	echo "$$OUTPUT" | grep -v "OK!" || true; \
 	if echo "$$OUTPUT" | grep -q "Error:"; then \
 		echo "❌ Norminette found errors."; \

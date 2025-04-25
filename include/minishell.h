@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 22:43:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/05 22:44:45 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/04/05 22:39:06 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/04/05 22:48:30 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-char	**copy_env(const char **envp);
-void	free_env(char **env);
-char	*get_env_value(char **env, const char *name);
-int		set_env_var(char ***env, const char *name, const char *value);
+# include "includes.h"
+# include "types.h"
+# include "enums.h"
+# include "parser.h"
+# include "executor.h"
+# include "env.h"
+# include "utils.h"
+# include "builtin.h"
+# include "signals.h"
+
+
+// Falta contenido... 
 
 #endif

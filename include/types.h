@@ -1,32 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 22:39:06 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/05 22:48:30 by abaldelo         ###   ########.fr       */
+/*   Created: 2025-04-29 11:00:58 by abaldelo          #+#    #+#             */
+/*   Updated: 2025-04-29 11:00:58 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "libft/include/libft.h"
-# include "include/parser.h"
-# include "include/executor.h"
-# include "include/env.h"
-# include "include/utils.h"
-# include "include/builtin.h"
-# include "include/signals.h"
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
+#ifndef TYPES_H
+# define TYPES_H
 
 typedef struct s_cmd
 {
@@ -47,6 +32,5 @@ typedef struct s_shell
 	t_cmd	*cmd_list; // Flag para saber si la shell debe seguir ejecutándose
 }	t_shell;
 
-// Falta contenido... 
 
 #endif
