@@ -16,7 +16,7 @@ obj/
 # Archivos de readline
 .history
 
-# Archivos del entorno (por si usás VSCode u otros editores)
+# Archivos del entorno
 .vscode/
 *.code-workspace
 
@@ -27,7 +27,7 @@ obj/
 .gdb_history
 .gdbinit
 
-# Librería libft (si se genera un .a)
+# Librería libft
 libft/libft.a
 
 # Archivos generados por Makefile
