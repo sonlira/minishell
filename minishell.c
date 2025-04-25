@@ -10,10 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
-// int ac, char **av, char **ev
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
-	// Falta contenido... :|
+	char	*line;
+
+	(void) ac;
+	(void) av;
+	(void) env;
+	while (1)
+	{
+		line = readline("minishell> ");
+		if (!line)
+			break; // Ctrl+D
+		add_history(line);
+		// aquí va el parsing y ejecución
+		free(line);
+	}
 	return (0);
 }

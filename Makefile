@@ -23,6 +23,9 @@ GLOBAL_H	= minishell.h
 LIBFT_DIR	= libft
 LIBFT_A		= $(LIBFT_DIR)/libft.a
 
+# Necesario para que funcione readline/readline.h y readline/history.h
+LIBS 		= -lreadline
+
 # Encuentra todos los archivos .c en src/ y subcarpetas 
 # Reemplazar una vez terminado el proyecto (no está permitido 😞)
 SRCS		= $(MAIN) $(shell find $(SRC_DIR) -name "*.c")
@@ -35,7 +38,7 @@ $(LIBFT_A):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 	@echo "✅ Compilación completa."
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
