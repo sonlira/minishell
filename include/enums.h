@@ -15,6 +15,7 @@
 
 typedef enum e_status
 {
+	ERROR = -1,
 	FAILURE = 0,
 	SUCCESS = 1
 }	t_status;

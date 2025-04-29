@@ -32,5 +32,4 @@ typedef struct s_shell
 	t_cmd	*cmd_list; // Flag para saber si la shell debe seguir ejecutándose
 }	t_shell;
 
-
 #endif

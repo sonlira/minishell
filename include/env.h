@@ -13,9 +13,15 @@
 #ifndef ENV_H
 # define ENV_H
 
+int		env_count(const char **env);
+void	free_partial_env(char **env, size_t count);
+int		variable_name_is_equal(char *var, const char *name);
+int		init_copy(char **dest, const char **orig);
 char	**copy_env(const char **envp);
-void	free_env(char **env);
+void	free_env(char ***env);
 char	*get_env_value(char **env, const char *name);
 int		set_env_var(char ***env, const char *name, const char *value);
+int		unset_env_var(char ***env, const char *name);
+void	print_env(char **env);
 
 #endif

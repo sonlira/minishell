@@ -12,20 +12,24 @@
 
 #include "minishell.h"
 
-static int	env_count(const char **env)
+int	env_count(const char **env)
 {
 	int	count;
 
+	if (!env)
+		return (FAILURE);
 	count = 0;
 	while (env[count])
 		count++;
 	return (count);
 }
 
-static void	free_partial_env(char **env, size_t count)
+void	free_partial_env(char **env, size_t count)
 {
 	size_t	i;
 
+	if (!env || count <= 0)
+		return ;
 	i = 0;
 	while (i < count)
 	{
@@ -35,10 +39,12 @@ static void	free_partial_env(char **env, size_t count)
 	free(env);
 }
 
-static int	init_copy(char **dest, const char **orig)
+int	init_copy(char **dest, const char **orig)
 {
 	size_t	i;
 
+	if (!orig || !dest)
+		return (FAILURE);
 	i = 0;
 	while (orig[i])
 	{
@@ -58,6 +64,8 @@ char	**copy_env(const char **envp)
 	char	**new_env;
 	int		size;
 
+	if (!envp || !*envp)
+		return (NULL);
 	size = env_count(envp);
 	new_env = malloc((size + 1) * sizeof(char *));
 	if (!new_env)

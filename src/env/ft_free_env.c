@@ -12,14 +12,30 @@
 
 #include "minishell.h"
 
-void	free_env(char **env)
+void	free_env(char ***env)
 {
 	size_t	i;
 
-	if (!env)
+	if (!env || !*env)
 		return ;
 	i = 0;
-	while (env[i])
+	while ((*env)[i])
+	{
+		free((*env)[i]);
+		i++;
+	}
+	free(*env);
+	*env = NULL;
+}
+
+void	free_partial_env(char **env, size_t count)
+{
+	size_t	i;
+
+	if (!env || count <= 0)
+		return ;
+	i = 0;
+	while (i < count)
 	{
 		free(env[i]);
 		i++;

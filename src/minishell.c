@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 
-	(void) ac;
-	(void) av;
-	(void) env;
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	while (1)
 	{
 		line = readline("minishell> ");

@@ -12,45 +12,66 @@
 
 #include "minishell.h"
 
-static int	variable_name_is_equal(char *var, char *name)
+static char	*format(const char *name, const char *value)
 {
-	size_t	len;
-
-	len = ft_strlen(name);
-	if (!ft_strncmp(var, name, len) && var[len] == '=')
-		return (SUCCESS);
-	return (FAILURE);
-}
-
-static void	update_value(char *var, char *name, char *value)
-{
+	char	*f_name;
 	char	*result;
-	char	*new_value;
 
-	free(var);
-	result = ft_strjoin(name, '=');
-	new_value = ft_strjoin(result, value);
-	free(result);
-	var = new_value;
-	free(new_value);
+	f_name = ft_strjoin(name, "=");
+	result = ft_strjoin(f_name, value);
+	free(f_name);
+	return (result);
 }
 
-//static  add_var()
-
-int	set_env_var(char ***env, const char *name, const char *value)
+static int	update_value(char ***env, const char *name, char *new_var)
 {
 	size_t	i;
 
+	i = 0;
 	while ((*env)[i])
 	{
 		if (variable_name_is_equal((*env)[i], name))
 		{
-			update_value((*env)[i], name, value);
+			free((*env)[i]);
+			(*env)[i] = new_var;
 			return (SUCCESS);
 		}
 		i++;
 	}
-		// add_var()
-		// Incompleto...
+	return (FAILURE);
+}
+
+static int	add_var(char ***env, char *new_var)
+{
+	char	**new_env;
+	int		size;
+
+	size = env_count((const char **)(*env));
+	new_env = malloc((size + 2) * sizeof(char *));
+	if (!new_env)
+		return (FAILURE);
+	if (!init_copy(new_env, (const char **)(*env)))
+		return (FAILURE);
+	new_env[size] = new_var;
+	new_env[size + 1] = NULL;
+	free_env(env);
+	*env = new_env;
+	return (SUCCESS);
+}
+
+int	set_env_var(char ***env, const char *name, const char *value)
+{
+	char	*new_var;
+
+	if (!env || !*env || !name || !value)
+		return (FAILURE);
+	new_var = format(name, value);
+	if (!new_var)
+		return (FAILURE);
+	if (update_value(env, name, new_var))
+		return (SUCCESS);
+	if (add_var(env, new_var))
+		return (SUCCESS);
+	free(new_var);
 	return (FAILURE);
 }
