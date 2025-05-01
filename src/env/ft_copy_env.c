@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_test.c                                        :+:      :+:    :+:   */
+/*   ft_copy_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:51 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/05 22:51:51 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:39:58 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -22,21 +22,6 @@ int	env_count(const char **env)
 	while (env[count])
 		count++;
 	return (count);
-}
-
-void	free_partial_env(char **env, size_t count)
-{
-	size_t	i;
-
-	if (!env || count <= 0)
-		return ;
-	i = 0;
-	while (i < count)
-	{
-		free(env[i]);
-		i++;
-	}
-	free(env);
 }
 
 int	init_copy(char **dest, const char **orig)

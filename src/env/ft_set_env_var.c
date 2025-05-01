@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_set_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com>   #+#  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-29 12:48:59 by abaldelo          #+#    #+#             */
-/*   Updated: 2025-04-29 12:48:59 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/04/29 12:48:59 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/01 20:24:19 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -19,6 +19,8 @@ static char	*format(const char *name, const char *value)
 
 	f_name = ft_strjoin(name, "=");
 	result = ft_strjoin(f_name, value);
+	if (!result)
+		return (f_name);
 	free(f_name);
 	return (result);
 }
@@ -63,7 +65,7 @@ int	set_env_var(char ***env, const char *name, const char *value)
 {
 	char	*new_var;
 
-	if (!env || !*env || !name || !value)
+	if (!env || !*env || !name)
 		return (FAILURE);
 	new_var = format(name, value);
 	if (!new_var)

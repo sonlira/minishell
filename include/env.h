@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/05 22:44:45 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/01 23:54:40 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef ENV_H
 # define ENV_H
@@ -23,5 +23,6 @@ char	*get_env_value(char **env, const char *name);
 int		set_env_var(char ***env, const char *name, const char *value);
 int		unset_env_var(char ***env, const char *name);
 void	print_env(char **env);
+void	print_sorted_env(char **env);
 
 #endif
