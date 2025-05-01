@@ -1,27 +1,37 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes.h                                         :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 10:59:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 15:33:59 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/04/05 22:51:48 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/01 17:57:01 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef INCLUDES_H
-# define INCLUDES_H
+#include "minishell.h"
 
-# include "../libft/include/libft.h"
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <limits.h>
+int	echo(char **args)
+{
+	bool	is_flag;
+	size_t	i;
 
-#endif
+	i = 1;
+	is_flag = false;
+	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	{
+		is_flag = true;
+		i++;
+	}
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (!is_flag)
+		printf("\n");
+	return (SUCCESS);
+}

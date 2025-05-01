@@ -1,27 +1,25 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes.h                                         :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 10:59:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 15:33:59 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/01 13:12:29 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/01 13:24:31 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef INCLUDES_H
-# define INCLUDES_H
+#include "minishell.h"
 
-# include "../libft/include/libft.h"
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <limits.h>
+int	pwd(void)
+{
+	char	*cwd;
 
-#endif
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (FAILURE);
+	printf("%s\n", cwd);
+	free(cwd);
+	return (SUCCESS);
+}

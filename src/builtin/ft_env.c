@@ -1,27 +1,25 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes.h                                         :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 10:59:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 15:33:59 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/02 00:14:30 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/02 00:39:53 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef INCLUDES_H
-# define INCLUDES_H
+#include "minishell.h"
 
-# include "../libft/include/libft.h"
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <limits.h>
-
-#endif
+int	env(char **args, char **env)
+{
+	if (!args[1])
+	{
+		print_env(env);
+		return (SUCCESS);
+	}
+	printf("env: «%s»", args[1]);
+	printf(": No such file or directory\n");
+	return (UNKNOWN_COMMAND);
+}
