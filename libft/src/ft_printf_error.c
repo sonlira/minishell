@@ -1,20 +1,24 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_printf_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 17:48:29 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 13:05:58 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/02 14:37:18 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/02 14:58:08 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_printf_error(char const *str, ...)
 {
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (1);
-	return (ft_memcmp(s1, s2, ft_strlen(s1)));
+	int		len;
+	va_list	args;
+
+	va_start(args, str);
+	len = ft_print_valist_fd(STDERR_FILENO, str, args);
+	va_end(args);
+	return (len);
 }

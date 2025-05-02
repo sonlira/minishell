@@ -1,20 +1,30 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_putptr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 17:48:29 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 13:05:58 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/02 14:20:37 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/02 14:22:17 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_putptr_fd(void *p, int fd)
 {
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (1);
-	return (ft_memcmp(s1, s2, ft_strlen(s1)));
+	int					len;
+	unsigned long long	pnum;
+
+	len = 0;
+	pnum = (unsigned long long)p;
+	if (!pnum)
+		len += ft_putstr_fd("(nil)", fd);
+	else
+	{
+		len += ft_putstr_fd("0x", fd);
+		len += ft_puthex_fd(pnum, 'x', fd);
+	}
+	return (len);
 }

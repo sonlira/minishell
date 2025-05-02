@@ -1,31 +1,43 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_puthex_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 18:25:08 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 14:34:27 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/02 14:16:52 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/02 14:22:15 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "libft.h"
 
-int	ft_putnbr_fd(int n, int fd)
+static	int	replace_char(int c)
 {
-	long long	num;
-	int			len;
+	if (c == 'x')
+		return ('a');
+	if (c == 'X')
+		return ('A');
+	return (c);
+}
 
-	num = n;
+int	ft_puthex_fd(unsigned long long n, char c, int fd)
+{
+	int	len;
+
 	len = 0;
-	if (num < 0)
+	c = replace_char(c);
+	if (n >= 16)
 	{
-		len += ft_putchar_fd('-', fd);
-		num = -num;
+		len += ft_puthex_fd((n / 16), c, fd);
+		len += ft_puthex_fd((n % 16), c, fd);
 	}
-	if (num >= 10)
-		len += ft_putnbr_fd(n / 10, fd);
-	len += ft_putchar_fd((n % 10 + '0'), fd);
+	else
+	{
+		if (n >= 10)
+			len += ft_putchar_fd((n - 10 + c), fd);
+		else
+			len += ft_putchar_fd((n + '0'), fd);
+	}
 	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 17:53:24 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:56:26 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdarg.h>
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
@@ -57,10 +58,16 @@ void		ft_free_split(char ***matriz);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-void		ft_putchar_fd(char c, int fd);
-void		ft_putstr_fd(char *s, int fd);
-void		ft_putendl_fd(char *s, int fd);
-void		ft_putnbr_fd(int n, int fd);
+int			ft_putchar_fd(char c, int fd);
+int			ft_putstr_fd(char *s, int fd);
+int			ft_putendl_fd(char *s, int fd);
+int			ft_putnbr_fd(int n, int fd);
+int			ft_putunbr_fd(unsigned int n, int fd);
+int			ft_puthex_fd(unsigned long long n, char c, int fd);
+int			ft_putptr_fd(void *p, int fd);
+int			ft_printf_fd(int fd, char const *str, ...);
+int			ft_printf_error(char const *str, ...);
+int			ft_print_valist_fd(int fd, char const *str, va_list args);
 char		*get_next_line(int fd);
 
 #endif
