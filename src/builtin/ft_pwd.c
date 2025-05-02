@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:12:29 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 13:24:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:44:55 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,8 +18,8 @@ int	pwd(void)
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (FAILURE);
+		return (EXIT_KO);
 	printf("%s\n", cwd);
 	free(cwd);
-	return (SUCCESS);
+	return (EXIT_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:59:19 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 00:06:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:06:54 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,7 +22,7 @@ static int	is_validname(char *name)
 	while (name[i])
 	{
 		if (ft_isalnum(name[i]) && name[i] != '_')
-			reutrn (FAILURE);
+			return (FAILURE);
 		i++;
 	}
 	return (SUCCESS);
@@ -45,7 +45,7 @@ static int	export_vars(char **agrs, char ***env)
 		}
 		else
 		{
-			var = ft_split(agrs[i], "=");
+			var = ft_split(agrs[i], '=');
 			if (!var)
 				return (EXIT_KO);
 			set_env_var(env, var[0], var[1]);
@@ -61,7 +61,7 @@ int	export(char **args, char ***env)
 	if (!args[1])
 	{
 		print_sorted_env(*env);
-		return (SUCCESS);
+		return (EXIT_OK);
 	}
 	return (export_vars((args + 1), env));
 }

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 22:46:27 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 00:09:33 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:04:49 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,7 +40,7 @@ static void	print(char *str)
 {
 	char	**var;
 
-	var = ft_split(str, "=");
+	var = ft_split(str, '=');
 	if (!var)
 		return ;
 	printf("declare -x %s", var[0]);

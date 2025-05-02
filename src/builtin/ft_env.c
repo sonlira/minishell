@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:14:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 00:39:53 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:00:37 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,9 +17,9 @@ int	env(char **args, char **env)
 	if (!args[1])
 	{
 		print_env(env);
-		return (SUCCESS);
+		return (EXIT_OK);
 	}
-	printf("env: «%s»", args[1]);
-	printf(": No such file or directory\n");
+	ft_printf_error("env: «%s»", args[1]);
+	ft_printf_error(": No such file or directory\n");
 	return (UNKNOWN_COMMAND);
 }

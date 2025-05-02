@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:48 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 17:57:01 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:42:52 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,5 +33,5 @@ int	echo(char **args)
 	}
 	if (!is_flag)
 		printf("\n");
-	return (SUCCESS);
+	return (EXIT_OK);
 }

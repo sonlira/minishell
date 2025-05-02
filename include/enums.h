@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:03:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 00:36:06 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:40:18 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,17 +22,17 @@ typedef enum e_std
 typedef enum e_status
 {
 	ERROR	= -1,
-	UNKNOWN_COMMAND = 127,
 	FAILURE = 0,
 	SUCCESS = 1
 }	t_status;
 
-typedef enum e_exit
+typedef enum e_builtin_status
 {
 	LIMITER	= 256,
 	EXIT_OK	= 0,
 	EXIT_KO	= 1,
 	INVALID	= 2,
-}	t_exit;
+	UNKNOWN_COMMAND = 127,
+}	t_builtin_status;
 
 #endif

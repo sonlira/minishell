@@ -6,13 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:29:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 19:51:48 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:59:35 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-static int	update_oldpwd(char **env, char *value)
+static int	update_oldpwd(char ***env, char *value)
 {
 	char	*cwd;
 
@@ -26,7 +26,7 @@ static int	update_oldpwd(char **env, char *value)
 	return (free(value), free(cwd), SUCCESS);
 }
 
-static int	go_to_env_path(char **args, char ***env, const char *name)
+static int	go_to_env_path(char ***env, const char *name)
 {
 	char	*var;
 	char	*pwd;
@@ -34,16 +34,16 @@ static int	go_to_env_path(char **args, char ***env, const char *name)
 	var = get_env_value(*env, name);
 	if (!var)
 	{
-		printf("minishell: cd: %s not set\n", name);
-		return (FAILURE);
+		ft_printf_error("minishell: cd: %s not set\n", name);
+		return (EXIT_KO);
 	}
 	pwd = get_env_value(*env, "PWD");
 	if (!pwd)
-		return (free(var), FAILURE);
+		return (free(var), EXIT_KO);
 	if (chdir(var) == ERROR)
-		return (free(var), free(pwd), FAILURE);
-	update_oldpwd(*env, pwd);
-	return (free(var), SUCCESS);
+		return (free(var), free(pwd), EXIT_KO);
+	update_oldpwd(env, pwd);
+	return (free(var), EXIT_OK);
 }
 
 static int	go_path(char **args, char ***env)
@@ -52,15 +52,20 @@ static int	go_path(char **args, char ***env)
 
 	pwd = get_env_value(*env, "PWD");
 	if (!pwd)
-		return (FAILURE);
+	{
+		pwd = getcwd(NULL, 0);
+		if (!pwd)
+			return (EXIT_KO);
+	}
 	if (chdir(args[1]) == ERROR)
 	{
-		printf("minishell: cd: %s ", args[1]);
-		printf(": The file or directory does not exist\n");
-		return (free(pwd), FAILURE);
+		ft_printf_error("minishell: cd: %s ", args[1]);
+		ft_printf_error(": The file or directory does not exist\n");
+		return (free(pwd), EXIT_KO);
 	}
-	update_oldpwd(*env, pwd);
-	return (SUCCESS);
+	update_oldpwd(env, pwd);
+	free(pwd);
+	return (EXIT_OK);
 }
 
 int	cd(char **args, char ***env)
@@ -69,13 +74,13 @@ int	cd(char **args, char ***env)
 
 	count = env_count((const char **)args);
 	if (count == 1)
-		return (go_to_env_path(args, env, "HOME"));
+		return (go_to_env_path(env, "HOME"));
 	else if (count == 2)
 	{
 		if (ft_strcmp(args[1], "-") == 0)
-			return (go_to_env_path(args, env, "OLDPWD"));
+			return (go_to_env_path(env, "OLDPWD"));
 		return (go_path(args, env));
 	}
-	printf("minishell: cd:  too many arguments\n");
-	return (FAILURE);
+	ft_printf_error("minishell: cd:  too many arguments\n");
+	return (EXIT_KO);
 }
