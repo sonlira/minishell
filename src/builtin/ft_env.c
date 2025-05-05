@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	env(char **args, char **env)
+int	ft_env(char **args, char **env)
 {
 	if (!args[1])
 	{

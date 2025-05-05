@@ -12,16 +12,16 @@
 
 #include "minishell.h"
 
-int	echo(char **args)
+int	ft_echo(char **args)
 {
-	bool	is_flag;
+	bool	flag;
 	size_t	i;
 
 	i = 1;
-	is_flag = false;
+	flag = false;
 	while (args[i] && ft_strcmp(args[i], "-n") == 0)
 	{
-		is_flag = true;
+		flag = true;
 		i++;
 	}
 	while (args[i])
@@ -31,7 +31,7 @@ int	echo(char **args)
 			printf(" ");
 		i++;
 	}
-	if (!is_flag)
+	if (!flag)
 		printf("\n");
 	return (EXIT_OK);
 }

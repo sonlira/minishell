@@ -26,17 +26,17 @@ int	is_builtin(char *cmd)
 int	execute_builtin(char **args, char ***envp)
 {
 	if (!ft_strcmp(args[0], "echo"))
-		return (echo(args));
+		return (ft_echo(args));
 	if (!ft_strcmp(args[0], "cd"))
-		return (cd(args, envp));
+		return (ft_cd(args, envp));
 	if (!ft_strcmp(args[0], "pwd"))
-		return (pwd());
+		return (ft_pwd());
 	if (!ft_strcmp(args[0], "export"))
-		return (export(args, envp));
+		return (ft_export(args, envp));
 	if (!ft_strcmp(args[0], "unset"))
-		return (unset(args, envp));
+		return (ft_unset(args, envp));
 	if (!ft_strcmp(args[0], "env"))
-		return (env(args, *envp));
+		return (ft_env(args, *envp));
 	if (!ft_strcmp(args[0], "exit"))
 		return (ft_exit(args));
 	return (ERROR);

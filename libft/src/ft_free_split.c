@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-void	ft_free_split(char ***matriz)
+void	ft_free_split(char ***matrix)
 {
 	size_t	i;
 
-	if (!matriz || !*matriz)
+	if (!matrix || !*matrix)
 		return ;
 	i = 0;
-	while ((*matriz)[i])
+	while ((*matrix)[i])
 	{
-		free((*matriz)[i]);
+		free((*matrix)[i]);
 		i++;
 	}
-	free(*matriz);
-	*matriz = NULL;
+	free(*matrix);
+	*matrix = NULL;
 }

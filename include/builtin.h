@@ -13,13 +13,13 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-int	echo(char **args);
-int	pwd(void);
+int	ft_echo(char **args);
+int	ft_pwd(void);
 int	ft_exit(char **args);
-int	cd(char **args, char ***env);
-int	export(char **args, char ***env);
-int	unset(char **args, char ***env);
-int	env(char **args, char **env);
+int	ft_cd(char **args, char ***env);
+int	ft_export(char **args, char ***env);
+int	ft_unset(char **args, char ***env);
+int	ft_env(char **args, char **env);
 int	is_builtin(char *cmd);
 int	execute_builtin(char **args, char ***envp);
 

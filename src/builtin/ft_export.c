@@ -21,7 +21,7 @@ static int	is_validname(char *name)
 	i = 1;
 	while (name[i])
 	{
-		if (ft_isalnum(name[i]) && name[i] != '_')
+		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (FAILURE);
 		i++;
 	}
@@ -56,7 +56,7 @@ static int	export_vars(char **agrs, char ***env)
 	return (error != 0);
 }
 
-int	export(char **args, char ***env)
+int	ft_export(char **args, char ***env)
 {
 	if (!args[1])
 	{

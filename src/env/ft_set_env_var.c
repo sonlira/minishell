@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	*format(const char *name, const char *value)
+static char	*format(const char *name, const char *value) //Dar formato tipo NOMBRE_VARIABLE=value
 {
 	char	*f_name;
 	char	*result;

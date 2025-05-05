@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-int	pwd(void)
+int	ft_pwd(void)
 {
 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
+	cwd = getcwd(NULL, 0); //NULL, 0 hace que se reserve memoria del tamaño que necesito. 
 	if (!cwd)
 		return (EXIT_KO);
 	printf("%s\n", cwd);

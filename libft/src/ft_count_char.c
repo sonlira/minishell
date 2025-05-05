@@ -1,28 +1,31 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   ft_count_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 00:17:12 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 00:30:57 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/05 12:36:28 by bgil-fer          #+#    #+#             */
+/*   Updated: 2025/05/05 12:51:23 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_unset(char **args, char ***env)
+int	ft_count_char(const char *str, int c)
 {
 	size_t	i;
+	int		count;
 
-	if (!args[1])
-		return (EXIT_OK);
-	i = 1;
-	while (args[i])
+	i = 0;
+	count = 0;
+	if (!str || !c)
+		return (count);
+	while (str[i])
 	{
-		unset_env_var(env, args[i]);
+		if (str[i] == c)
+			count++;
 		i++;
 	}
-	return (EXIT_OK);
+	return (count);
 }

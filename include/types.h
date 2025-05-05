@@ -26,7 +26,7 @@ typedef struct s_cmd
 
 typedef struct s_shell
 {
-	char	**envp; // Copia modificable de las variables de entorno
+	char	**env_cpy; // Copia modificable de las variables de entorno
 	int		last_exit; // Último código de salida ($?)
 	int		running; // Flag para saber si la shell debe seguir ejecutándose
 	t_cmd	*cmd_list; // Lista enlazada de comandos parseados

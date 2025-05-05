@@ -16,9 +16,9 @@ static int	update_oldpwd(char ***env, char *value)
 {
 	char	*cwd;
 
-	if (!set_env_var(env, "OLDPWD", value))
+	if (!set_env_var(env, "OLDPWD", value)) //set_env_var actualiza en mi copia de env, la rut en la variable OLDPWD
 		return (free(value), FAILURE);
-	cwd = getcwd(NULL, 0);
+	cwd = getcwd(NULL, 0); //me da la ruta actual (pwd)
 	if (!cwd)
 		return (free(value), FAILURE);
 	if (!set_env_var(env, "PWD", cwd))
@@ -40,7 +40,7 @@ static int	go_to_env_path(char ***env, const char *name)
 	pwd = get_env_value(*env, "PWD");
 	if (!pwd)
 		return (free(var), EXIT_KO);
-	if (chdir(var) == ERROR)
+	if (chdir(var) == ERROR) // chdir cambia de ruta
 		return (free(var), free(pwd), EXIT_KO);
 	update_oldpwd(env, pwd);
 	return (free(var), EXIT_OK);
@@ -68,7 +68,7 @@ static int	go_path(char **args, char ***env)
 	return (EXIT_OK);
 }
 
-int	cd(char **args, char ***env)
+int	ft_cd(char **args, char ***env)
 {
 	int	count;
 
@@ -77,7 +77,7 @@ int	cd(char **args, char ***env)
 		return (go_to_env_path(env, "HOME"));
 	else if (count == 2)
 	{
-		if (ft_strcmp(args[1], "-") == 0)
+		if (ft_strcmp(args[1], "-") == 0) // Si -, vuelve a la ruta anterior
 			return (go_to_env_path(env, "OLDPWD"));
 		return (go_path(args, env));
 	}
