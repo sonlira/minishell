@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_set_env_var.c                                   :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 12:48:59 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/01 20:24:19 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -48,7 +48,7 @@ static int	add_var(char ***env, char *new_var)
 	char	**new_env;
 	int		size;
 
-	size = env_count((const char **)(*env));
+	size = count_elements((const char **)(*env));
 	new_env = malloc((size + 2) * sizeof(char *));
 	if (!new_env)
 		return (FAILURE);

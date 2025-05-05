@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_copy_env.c                                      :+:      :+:    :+:   */
@@ -6,13 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:51 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/04/30 15:39:58 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env_count(const char **env)
+int	count_elements(const char **env)
 {
 	int	count;
 
@@ -51,7 +51,7 @@ char	**copy_env(const char **envp)
 
 	if (!envp || !*envp)
 		return (NULL);
-	size = env_count(envp);
+	size = count_elements(envp);
 	new_env = malloc((size + 1) * sizeof(char *));
 	if (!new_env)
 		return (NULL);

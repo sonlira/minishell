@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 13:50:03 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:22:40 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -69,6 +69,6 @@ int			ft_printf_fd(int fd, char const *str, ...);
 int			ft_printf_error(char const *str, ...);
 int			ft_print_valist_fd(int fd, char const *str, va_list args);
 char		*get_next_line(int fd);
-int	        ft_count_char(const char *str, int c);
+int			ft_count_char(const char *str, int c);
 
 #endif

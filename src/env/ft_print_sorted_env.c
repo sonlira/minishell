@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_print_sorted_env.c                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 22:46:27 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/02 13:04:49 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -61,7 +61,7 @@ void	print_sorted_env(char **env)
 	matrix = copy_env((const char **)env);
 	if (!matrix)
 		return ;
-	size = env_count((const char **)env);
+	size = count_elements((const char **)env);
 	sorted(matrix, size);
 	i = 0;
 	while (matrix[i])

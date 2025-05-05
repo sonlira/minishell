@@ -6,7 +6,7 @@
 #    By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 17:35:09 by abaldelo          #+#    #+#              #
-#    Updated: 2025/04/19 16:46:41 by abaldelo         ###   ########.fr        #
+#    Updated: 2025/05/05 21:21:42 by abaldelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ fclean: clean
 
 norm:
 	@echo "Checking norminette..."
-	@OUTPUT=$$(norminette $(SRC_DIR)/ $(INC_DIR)/); \
+	@OUTPUT=$$(norminette $(SRC_DIR)/ $(INC_DIR)/ $(LIBFT_DIR)/); \
 	echo "$$OUTPUT" | grep -v "OK!" || true; \
 	if echo "$$OUTPUT" | grep -q "Error:"; then \
 		echo "❌ Norminette found errors."; \
