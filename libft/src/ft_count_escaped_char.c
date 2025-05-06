@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_count_escaped_char.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 17:48:29 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/06 13:49:08 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/06 20:48:10 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/06 21:24:01 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_count_escaped_char(const char *s, int c)
 {
-	return (ft_memcmp(s1, s2, (ft_strlen(s1) + 1)));
+	size_t	i;
+	int		count;
+
+	count = 0;
+	if (!s)
+		return (count);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\\' && s[i + 1] == (char)c)
+		{
+			count++;
+			i++;
+		}
+		i++;
+	}
+	return (count);
 }

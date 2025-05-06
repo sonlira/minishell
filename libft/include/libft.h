@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 21:22:40 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/06 22:28:27 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,9 @@ int			ft_printf_error(char const *str, ...);
 int			ft_print_valist_fd(int fd, char const *str, va_list args);
 char		*get_next_line(int fd);
 int			ft_count_char(const char *str, int c);
+int			ft_count_escaped_char(const char *s, int c);
+int			ft_count_unescaped_char(const char *s, int c);
+int			ft_strchr_idx(const char *s, int c);
+int			ft_strrchr_idx(const char *s, int c);
 
 #endif
