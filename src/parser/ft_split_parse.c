@@ -6,11 +6,36 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:10:56 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/05/05 21:18:21 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/06 23:01:34 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// 34 = "
+// 39 = '
+static int count_pipe(char *s)
+{
+	int		count;
+	size_t	i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == 34)
+		{
+			i = ft_strchr_idx(s + i, 34); 
+	// Falta añadir cositas :/ 
+	// ft_strchr_idx() me devuelve el índice del siguiente `"` pero no considera si antes de ese carácter hay un `\`.
+	// Por lo tanto, no me sirve tal cual está.
+	// Nota: Implementar una función que retorne el índice de la comilla válida, es decir, aquella que no tiene un `\` antes de ella.
+	// Idea: Usar un bucle `while` que llame a `ft_strchr_idx` hasta encontrar la comilla de cierre válida.
+		}						
+		i++;
+	}
+	return (count);
+}
 
 static size_t	quoted_words(char const *s, int q) //Revisar
 {
