@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:10:56 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/05/06 23:01:34 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:35:09 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // 34 = "
 // 39 = '
-static int count_pipe(char *s)
+static int next_char_unescaped(char *s, int c) //nombre temporal 
 {
 	int		count;
 	size_t	i;
@@ -23,15 +23,58 @@ static int count_pipe(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == 34)
-		{
-			i = ft_strchr_idx(s + i, 34); 
+		i = ft_strchr_idx((s + i), c);
+		if (s[i - 1] != '\\')
+			return (i);
+		i++;
+	}
+}// Dame el indice del siguiente '"' valido (que no tenga un '\' un byte antes)
+
+static int count_valid_char(char *s, int c) // objetivo darnos el numero total de caracter valido
+{
+	int		count;
+	size_t	i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == 34 && (s[i - 1] && s[i - 1] != '\\')) // si es '"'
+			i = next_char_unescaped((s + i), 34); // Dame el indice del siguiente '"' valido (que no tenga un '\' un byte antes)
+		else if (s[i] == 39 && (s[i - 1] && s[i - 1] != '\\')) // si es "'"
+			i = next_char_unescaped((s + i), 34); // Dame el indice del siguiente "'" valido (que no tenga un '\' un byte antes)
+		else if (s[i] == (char)c && (s[i - 1] && s[i - 1] != '\\'))
+			count++;
 	// Falta añadir cositas :/ 
 	// ft_strchr_idx() me devuelve el índice del siguiente `"` pero no considera si antes de ese carácter hay un `\`.
 	// Por lo tanto, no me sirve tal cual está.
 	// Nota: Implementar una función que retorne el índice de la comilla válida, es decir, aquella que no tiene un `\` antes de ella.
-	// Idea: Usar un bucle `while` que llame a `ft_strchr_idx` hasta encontrar la comilla de cierre válida.
-		}						
+	// Idea: Usar un bucle `while` que llame a `ft_strchr_idx` hasta encontrar la comilla de cierre válida.					
+		i++;
+	}
+	return (count);
+}
+
+static int idx_valid_char(char *s, int c) //objetivo darnos el indice del caracter valido
+{
+	int		count;
+	size_t	i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == 34 && (s[i - 1] && s[i - 1] != '\\')) // si es '"'
+			i = next_char_unescaped((s + i), 34); // Dame el indice del siguiente '"' valido (que no tenga un '\' un byte antes)
+		else if (s[i] == 39 && (s[i - 1] && s[i - 1] != '\\')) // si es "'"
+			i = next_char_unescaped((s + i), 34); // Dame el indice del siguiente "'" valido (que no tenga un '\' un byte antes)
+		else if (s[i] == (char)c && (s[i - 1] && s[i - 1] != '\\'))
+			return (i);
+	// Falta añadir cositas :/ 
+	// ft_strchr_idx() me devuelve el índice del siguiente `"` pero no considera si antes de ese carácter hay un `\`.
+	// Por lo tanto, no me sirve tal cual está.
+	// Nota: Implementar una función que retorne el índice de la comilla válida, es decir, aquella que no tiene un `\` antes de ella.
+	// Idea: Usar un bucle `while` que llame a `ft_strchr_idx` hasta encontrar la comilla de cierre válida.					
 		i++;
 	}
 	return (count);

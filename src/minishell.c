@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 21:18:25 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:43:19 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,33 @@ void	parse(t_cmd *cmd, char *line)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
-	t_cmd	cmd;
+	// t_cmd	cmd;
+	t_shell	shell;
 	size_t	i;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	while (1)
+	shell.env_cpy = copy_env((const char **)envp);
+	shell.last_exit = 0;
+	shell.running = 1;
+	shell.cmd_list = NULL;
+	while (shell.running)
 	{
 		line = readline("minishell> ");
 		if (!line)
 			break ; // Ctrl+D
 		add_history(line);
 		// aquí va el parsing y ejecución
-		initialize_cmd(&cmd);
-		parse(&cmd, line);
-		i = 0;
-		while (cmd.args[i])
-		{
-			printf("args[%zd] %s\n", i, cmd.args[i]);
-			i++;
-		}
-		printf("heredoc = %i\nappend = %i\ninfile = %s\noutfile = %s\n", cmd.heredoc, cmd.append, cmd.infile, cmd.outfile);
+		// initialize_cmd(&cmd);
+		// parse(&cmd, line);
+		parser(&shell, line);
+		// i = 0;
+		// while (cmd.args[i])
+		// {
+		// 	printf("args[%zd] %s\n", i, cmd.args[i]);
+		// 	i++;
+		// }
+		// printf("heredoc = %i\nappend = %i\ninfile = %s\noutfile = %s\n", cmd.heredoc, cmd.append, cmd.infile, cmd.outfile);
 		free(line);
 	}
 	return (0);
