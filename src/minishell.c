@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/07 17:43:19 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:35:29 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	// t_cmd	cmd;
 	t_shell	shell;
-	size_t	i;
+	// size_t	i;
 
 	(void)argc;
 	(void)argv;
@@ -66,6 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		// aquí va el parsing y ejecución
 		// initialize_cmd(&cmd);
 		// parse(&cmd, line);
+		
 		parser(&shell, line);
 		// i = 0;
 		// while (cmd.args[i])

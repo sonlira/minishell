@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/06 22:28:27 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:52:29 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -72,7 +72,7 @@ char		*get_next_line(int fd);
 int			ft_count_char(const char *str, int c);
 int			ft_count_escaped_char(const char *s, int c);
 int			ft_count_unescaped_char(const char *s, int c);
-int			ft_strchr_idx(const char *s, int c);
+size_t	    ft_strchr_idx(const char *s, int c, size_t i);
 int			ft_strrchr_idx(const char *s, int c);
 
 #endif

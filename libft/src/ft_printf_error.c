@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:37:18 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:18:46 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:19:11 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "libft.h"
 
@@ -20,5 +20,6 @@ int	ft_printf_error(char const *str, ...)
 	va_start(args, str);
 	len = ft_print_valist_fd(STDERR_FILENO, str, args);
 	va_end(args);
-	return (len);
+	exit(-1);//Crear funcion sterror
+	return (0);
 }
