@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/08 12:52:29 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:06:49 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <stdbool.h>
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
@@ -72,7 +73,8 @@ char		*get_next_line(int fd);
 int			ft_count_char(const char *str, int c);
 int			ft_count_escaped_char(const char *s, int c);
 int			ft_count_unescaped_char(const char *s, int c);
-size_t	    ft_strchr_idx(const char *s, int c, size_t i);
+// size_t	    ft_strchr_idx(const char *s, int c, size_t i);
+bool		ft_strchr_idx(const char *s, int c, size_t *idx);
 int			ft_strrchr_idx(const char *s, int c);
 
 #endif

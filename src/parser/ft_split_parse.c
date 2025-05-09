@@ -1,101 +1,144 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_split_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:10:56 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/05/08 14:50:32 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/09 21:07:10 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-// 34 = "
-// 39 = '
+/*
+ 34  = "
+ 39  = '
+ 124 = |
+ 92  = \ 
+*/
 
-int count_valid_pipe(char *s)
+bool	is_valid(const char *s, size_t i) //Cambiar nombre de función
 {
-	int		pipes;
-	size_t	i;
+	if (i == 0 && s[i] == 124)
+	{
+		ft_printf_error("minishell: syntax error near unexpected token '|'\n");
+		return (false);
+	}
+	i++;
+	while (ft_isspace(s[i]))
+		i++;
+	if (s[i] == '\0' || s[i] == 124)
+		return (false);
+	return (true);
+}
 
-	pipes = 0;
+bool	count_valid_pipes(const char *s, size_t *pipes) //Cambiar nombre de función
+{
+	size_t	i;
+	size_t	count;
+
+	count = 0;
 	i = 0;
-	if (s[0] == 124)
-		ft_printf_error("minishell: syntax error near unexpected token '|'");
 	while (s[i])
 	{
-		if (s[i] == 34)
-			i = ft_strchr_idx(s, 34, i) + 1;
-		else if (s[i] == 39)
-			i = ft_strchr_idx(s, 39, i) + 1;
-		else if (s[i] == '|' && (s[i - 1] && s[i - 1] != '\\'))
+		if (s[i] == 34 && ft_strchr_idx(s, 34, &i))
+			i++;
+		else if (s[i] == 39 && ft_strchr_idx(s, 39, &i))
+			i++;
+		else if (s[i] == 124 && s[i - 1] != 92)
 		{
-			pipes++;
+			if (!is_valid(s, i))
+				return (false);
+			count++;
 			i++;
 		}
 		else
 			i++;
 	}
-	return (pipes);
+	*pipes = count;
+	return (true);
 }
 
-size_t prov (char *s, int c, size_t i, int *count) //Cambiar nombre de función
+size_t prov	(char *s, int c, size_t i, int *count) //Cambiar nombre de función
 {
-	size_t aux;
-	aux = i;
-	if (s[i] == c && (s[i - 1] || i == 0))
-		{
-			if ((i == 0) || (s[i - 1] && s[i - 1] != 92))
-			{
-				aux = i;
-				*count+=1;
-				i = ft_strchr_idx(s, c, i);
-				if (s[i] == c && i != aux && s[i - 1] != 92)
-					*count+=1;
-			}
-		}
+	if ((i == 0) || (s[i - 1] && s[i - 1] != 92))
+	{
+		*count += 1;
+		if (ft_strchr_idx(s, c, &i))
+			*count += 1;
+	}
 	return (i);
 }
 
-int are_valid_quotes(char *s)
+int	are_valid_quotes(const char *s)
 {
-	int		count;
+	int		quote;
+	int		dquote;
 	size_t	i;
 
 	i = 0;
-	count = 0;
+	quote = 0;
+	dquote = 0;
 	while (s[i])
 	{
 		if (s[i] == 39 && (s[i - 1] || i == 0))
-			i = prov(s, 39, i, &count);
+			i = prov((char *)s, 39, i, &quote);
 		else if (s[i] == 34 && (s[i - 1] || i == 0))
-			i = prov(s, 34, i, &count);
+			i = prov((char *)s, 34, i, &dquote);
 		i++;
 	}
-	printf("quotes: %i\n", count);
-	return (count % 2 == 0);
+	printf("quote: %i\n", quote);
+	printf("dquote: %i\n", dquote);
+	printf("%i mod 2  = %i\n",(quote + dquote) , ((quote + dquote) % 2));
+	return ((dquote % 2 == 0) && (quote % 2 == 0));
 }
 
-int idx_valid_pipe(char *s) // Revisar
+size_t	idx_valid_pipe(char *s, size_t i) //Cambiar nombre de función
 {
-	size_t	i;
-
-	i = 0;
 	while (s[i])
 	{
-		if (s[i] == 34 && (s[i - 1] && s[i - 1] != '\\'))
-			i = ft_strchr_idx(s, 34, i);
-		else if (s[i] == 39 && (s[i - 1] && s[i - 1] != '\\'))
-			i = ft_strchr_idx(s, 39, i);
-		else if (s[i] == '|' && (s[i - 1] && s[i - 1] != '\\'))
+		if (s[i] == 34 && ft_strchr_idx(s, 34, &i))
+			i++;
+		else if (s[i] == 39 && ft_strchr_idx(s, 39, &i))
+			i++;
+		else if (s[i] == 124 && s[i - 1] != 92)
 			return (i);
-		i++;
+		else
+			i++;
 	}
-	return (i - 1);
+	return (i);
 }
 
+bool	div_line(const char *s, char ***matrix) //Cambiar nombre de función
+{
+	size_t	size;
+	size_t	i;
+	size_t	start;
+	size_t	end;
+
+	if (!count_valid_pipes(s, &size))
+		return (false);
+	*matrix = malloc((size + 2) * sizeof(char *));
+	if (!*matrix)
+		return (false);
+	i = -1;
+	start = 0;
+	while (++i < (size + 1))
+	{
+		end = idx_valid_pipe((char *)s, start);
+		(*matrix)[i] = ft_substr(s, start, (end - start));
+		if (!(*matrix)[i])
+			return (ft_free_split(matrix), false);
+		if (s[end])
+			start = end + 1;
+		printf("matrix[%zi] %s\n", i, (*matrix)[i]);
+	}
+	(*matrix)[size + 1] = NULL;
+	return (true);
+}
+// Por ahora, Los Rechazados :,(
 static size_t	quoted_words(char const *s, int q) //Revisar
 {
 	char	*quote;
