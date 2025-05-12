@@ -35,3 +35,4 @@ libft/libft.a
 
 # Evita subir archivos ocultos de shell
 .env
+.idea
