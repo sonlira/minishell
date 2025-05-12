@@ -6,23 +6,11 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:51 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:24:09 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	count_elements(const char **env)
-{
-	int	count;
-
-	if (!env)
-		return (FAILURE);
-	count = 0;
-	while (env[count])
-		count++;
-	return (count);
-}
 
 int	init_copy(char **dest, const char **orig)
 {
@@ -51,7 +39,7 @@ char	**copy_env(const char **envp)
 
 	if (!envp || !*envp)
 		return (NULL);
-	size = count_elements(envp);
+	size = ft_count_elements(envp);
 	new_env = malloc((size + 1) * sizeof(char *));
 	if (!new_env)
 		return (NULL);

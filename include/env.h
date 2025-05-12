@@ -6,14 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:25:06 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
-int		count_elements(const char **env);
 void	free_partial_env(char **env, size_t count);
 int		variable_name_is_equal(char *var, const char *name);
 int		init_copy(char **dest, const char **orig);

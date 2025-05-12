@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/12 17:08:29 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:23:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			ft_count_char(const char *str, int c);
 int			ft_count_escaped_char(const char *s, int c);
 int			ft_count_unescaped_char(const char *s, int c);
 bool		ft_find_rawchar(const char *s, int c, size_t *idx);
-int			ft_strrchr_idx(const char *s, int c);
+int			ft_count_elements(const char **matrix);
+bool		ft_set_string(char **dest, const char *src);
 
 #endif

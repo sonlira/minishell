@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:29:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:22:31 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_cd(char **args, char ***env)
 {
 	int	count;
 
-	count = count_elements((const char **)args);
+	count = ft_count_elements((const char **)args);
 	if (count == 1)
 		return (go_to_env_path(env, "HOME"));
 	else if (count == 2)

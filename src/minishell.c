@@ -1,48 +1,48 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/08 12:35:29 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:02:55 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-void	initialize_cmd(t_cmd *cmd)
-{
-	cmd->cmd = NULL;
-	cmd->args = NULL;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
-	cmd->append = 0;
-	cmd->heredoc = 0;
-	cmd->next = NULL;
-}
+// void	initialize_cmd(t_cmd *cmd)
+// {
+// 	cmd->cmd = NULL;
+// 	cmd->args = NULL;
+// 	cmd->infile = NULL;
+// 	cmd->outfile = NULL;
+// 	cmd->append = 0;
+// 	cmd->heredoc = 0;
+// 	cmd->next = NULL;
+// }
 
-void	parse(t_cmd *cmd, char *line)
-{
-	size_t	i;
+// void	parse(t_cmd *cmd, char *line)
+// {
+// 	size_t	i;
 
-	cmd->args = ft_split_parse(line, ' ');
-	cmd->cmd = cmd->args[0];
-	i = 0;
-	while (cmd->args[i])
-	{
-		if (!ft_strcmp(cmd->args[i], "<<") && cmd->args[i + 1])
-			cmd->heredoc = 1;
-		else if (!ft_strcmp(cmd->args[i], ">>") && cmd->args[i + 1])
-			cmd->append = 1;
-		else if (!ft_strcmp(cmd->args[i], "<") && cmd->args[i + 1])
-			cmd->infile = ft_strdup(cmd->args[i + 1]);
-		else if (!ft_strcmp(cmd->args[i], ">") && cmd->args[i + 1])
-			cmd->outfile = ft_strdup(cmd->args[i + 1]);
-		i++;
-	}
-}
+// 	cmd->args = split_ignore_quotes(line, ' ');
+// 	cmd->cmd = cmd->args[0];
+// 	i = 0;
+// 	while (cmd->args[i])
+// 	{
+// 		if (!ft_strcmp(cmd->args[i], "<<") && cmd->args[i + 1])
+// 			cmd->heredoc = 1;
+// 		else if (!ft_strcmp(cmd->args[i], ">>") && cmd->args[i + 1])
+// 			cmd->append = 1;
+// 		else if (!ft_strcmp(cmd->args[i], "<") && cmd->args[i + 1])
+// 			cmd->infile = ft_strdup(cmd->args[i + 1]);
+// 		else if (!ft_strcmp(cmd->args[i], ">") && cmd->args[i + 1])
+// 			cmd->outfile = ft_strdup(cmd->args[i + 1]);
+// 		i++;
+// 	}
+// }
 
 int	main(int argc, char **argv, char **envp)
 {

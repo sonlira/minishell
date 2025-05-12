@@ -6,13 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:05:01 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/12 18:19:36 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/12 20:49:04 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	count_valid_semicolon(const char *s, size_t *size)
+bool	count_valid_semicolon(const char *s, size_t *size)
 {
 	return (are_valid_delimiters(s, 59, size));
 }

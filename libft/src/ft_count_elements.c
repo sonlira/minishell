@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr_idx.c                                   :+:      :+:    :+:   */
+/*   ft_count_elements.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 22:14:34 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/06 22:27:01 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/05/13 12:21:54 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/05/13 12:23:58 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strrchr_idx(const char *s, int c)
+int	ft_count_elements(const char **matrix)
 {
-	int	len;
+	int	count;
 
-	len = ft_strlen(s);
-	if ((char)c == '\0')
-		return (len);
-	while (len--)
-	{
-		if (s[len] == (char)c)
-			return (len);
-	}
-	return (-1);
+	count = 0;
+	if (!matrix)
+		return (count);
+	while (matrix[count])
+		count++;
+	return (count);
 }

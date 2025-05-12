@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 22:46:27 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:30:42 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:22:31 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_sorted_env(char **env)
 	matrix = copy_env((const char **)env);
 	if (!matrix)
 		return ;
-	size = count_elements((const char **)env);
+	size = ft_count_elements((const char **)env);
 	sorted(matrix, size);
 	i = 0;
 	while (matrix[i])

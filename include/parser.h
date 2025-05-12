@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:06 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/12 20:16:50 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/12 20:49:56 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	are_valid_pipes(const char *s);
 bool	are_valid_semicolon(const char *s);
 bool	are_valid_quotes(const char *s);
 bool	split_ignore_quotes(char const *s, char ***matrix);
+bool	count_valid_semicolon(const char *s, size_t *size);
 bool	split_valid_semicolons(const char *s, char ***matrix);
 char	*format_prompt_str(const char *s);
 #endif
