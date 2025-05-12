@@ -6,12 +6,14 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:03:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 21:19:52 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:32:44 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENUMS_H
 # define ENUMS_H
+
+# define BUFF_SIZE 4096
 
 typedef enum e_std
 {

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:12:33 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/12 18:31:44 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:12:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	is_valid_delimiter(const char *s, size_t i)
 	i++;
 	while (ft_isspace(s[i]))
 		i++;
-	return (s[i] == '\0' || s[i] == 124 || s[i] == 59);
+	return (s[i] != '\0' && s[i] != 124 && s[i] != 59);
 }
 
 bool	are_valid_delimiters(const char *s, int delimiter, size_t *total)
