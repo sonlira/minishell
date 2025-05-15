@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   split_ignoring_quotes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:10:56 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/05/12 18:58:10 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/15 10:16:37 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -45,7 +45,7 @@ static size_t	count_words(char const *s, char c)
 	return (count);
 }
 
-bool	split_ignore_quotes(char const *s, char ***matrix)
+bool	split_ignoring_quotes(char const *s, char ***matrix)
 {
 	size_t	i;
 	char	c;

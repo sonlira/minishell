@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:00:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 19:24:04 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:19:05 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_shell
 	char	**env_cpy; // Copia modificable de las variables de entorno
 	int		last_exit; // Último código de salida ($?)
 	bool	running; // Flag para saber si la shell debe seguir ejecutándose
-	t_cmd	*cmd_list; // Lista enlazada de comandos parseados
+	t_cmd	**cmd_list; // Lista enlazada de comandos parseados
 }	t_shell;
 
 #endif
