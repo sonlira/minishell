@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:14:34 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 19:23:28 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:04:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ bool	ft_set_string(char **dest, const char *src)
 
 	if (!dest || !src)
 		return (false);
+	if (*dest && !ft_strcmp(*dest, src))
+		return (true);
 	s = ft_strdup(src);
 	if (!s)
 		return (false);

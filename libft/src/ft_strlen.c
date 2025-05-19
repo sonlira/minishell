@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:48:19 by abaldelo          #+#    #+#             */
-/*   Updated: 2024/10/08 19:57:40 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:58:32 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 size_t	ft_strlen(const char *str)
 {
-	size_t	str_long;
+	size_t	len;
 
-	str_long = 0;
-	while (str[str_long] != '\0')
-	{
-		str_long++;
-	}
-	return (str_long);
+	len = 0;
+	if (!str)
+		return (len);
+	while (str[len])
+		len++;
+	return (len);
 }

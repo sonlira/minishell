@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 19:23:36 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:01:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int			ft_putunbr_fd(unsigned int n, int fd);
 int			ft_puthex_fd(unsigned long long n, char c, int fd);
 int			ft_putptr_fd(void *p, int fd);
 int			ft_printf_fd(int fd, char const *str, ...);
-int			ft_printf_error(char const *str, ...);
+int			ft_eprintf(char const *str, ...);
 int			ft_print_valist_fd(int fd, char const *str, va_list args);
 char		*get_next_line(int fd);
 int			ft_count_char(const char *str, int c);
-int			ft_count_escaped_char(const char *s, int c);
-int			ft_count_unescaped_char(const char *s, int c);
+bool		ft_has_rawchar(const char *s, int c);
+void		ft_print_str_array(char **array);
 bool		ft_find_rawchar(const char *s, int c, size_t *idx);
 int			ft_count_elements(const char **matrix);
 bool		ft_set_string(char **dest, const char *src);

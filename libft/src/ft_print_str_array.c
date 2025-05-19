@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_unescaped_char.c                          :+:      :+:    :+:   */
+/*   ft_print_str_array.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 20:55:27 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/06 21:25:57 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:23:02 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_unescaped_char(const char *s, int c)
+void	ft_print_str_array(char **array)
 {
-	if (!s)
-		return (0);
-	return (ft_count_char(s, c) - ft_count_escaped_char(s, c));
+	size_t	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		ft_printf_fd(STDIN_FILENO, "%s\n", array[i]);
+		i++;
+	}
 }
