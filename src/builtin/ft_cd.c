@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:29:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 12:22:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:01:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	go_to_env_path(char ***env, const char *name)
 	var = get_env_value(*env, name);
 	if (!var)
 	{
-		ft_printf_error("minishell: cd: %s not set\n", name);
+		ft_eprintf("minishell: cd: %s not set\n", name);
 		return (EXIT_KO);
 	}
 	pwd = get_env_value(*env, "PWD");
@@ -59,8 +59,8 @@ static int	go_path(char **args, char ***env)
 	}
 	if (chdir(args[1]) == ERROR)
 	{
-		ft_printf_error("minishell: cd: %s ", args[1]);
-		ft_printf_error(": The file or directory does not exist\n");
+		ft_eprintf("minishell: cd: %s ", args[1]);
+		ft_eprintf(": The file or directory does not exist\n");
 		return (free(pwd), EXIT_KO);
 	}
 	update_oldpwd(env, pwd);
@@ -81,6 +81,6 @@ int	ft_cd(char **args, char ***env)
 			return (go_to_env_path(env, "OLDPWD"));
 		return (go_path(args, env));
 	}
-	ft_printf_error("minishell: cd:  too many arguments\n");
+	ft_eprintf("minishell: cd:  too many arguments\n");
 	return (EXIT_KO);
 }

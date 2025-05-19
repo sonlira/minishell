@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:47:23 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 12:22:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:01:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	ft_exit(char **args)
 	{
 		if (!ft_atoll(args[1]))
 		{
-			ft_printf_error("minishell: exit: %s ", args[1]);
-			ft_printf_error(": numeric argument required\n");
+			ft_eprintf("minishell: exit: %s ", args[1]);
+			ft_eprintf(": numeric argument required\n");
 			exit(INVALID);
 		}
 		exit_code = (int)(ft_atoll(args[1]) % LIMITER);
 		exit(exit_code);
 	}
-	ft_printf_error("minishell: exit:  too many arguments\n");
+	ft_eprintf("minishell: exit:  too many arguments\n");
 	return (EXIT_KO);
 }
