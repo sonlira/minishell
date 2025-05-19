@@ -6,15 +6,15 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:05:01 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/12 20:49:04 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:55:39 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	count_valid_semicolon(const char *s, size_t *size)
+bool	count_valid_semicolon(t_shell *shell, const char *s, size_t *size)
 {
-	return (are_valid_delimiters(s, 59, size));
+	return (are_valid_delims(shell, s, 59, size));
 }
 
 static size_t	find_next_valid_semicolon_idx(const char *s, size_t i)
@@ -31,16 +31,16 @@ static size_t	find_next_valid_semicolon_idx(const char *s, size_t i)
 	return (i);
 }
 
-bool	split_valid_semicolons(const char *s, char ***matrix)
+bool	split_valid_semicolons(t_shell *shell, const char *s, char ***matrix)
 {
 	size_t	size;
 	size_t	i;
 	size_t	start;
 	size_t	end;
 
-	if (!s || !matrix || !are_valid_quotes(s))
+	if (!s || !matrix || !are_valid_quotes(shell, s))
 		return (false);
-	if (!count_valid_semicolon(s, &size))
+	if (!count_valid_semicolon(shell, s, &size))
 		return (false);
 	*matrix = ft_calloc((size + 2), sizeof(char *));
 	if (!*matrix)

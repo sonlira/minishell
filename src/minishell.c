@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/15 13:02:16 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:30:48 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			break ; // Ctrl+D
 		add_history(line);
-		// aquí va el parsing y ejecución
-		//parse_input(&shell, line);
-		print_env(shell.env_cpy); //comprobar que lo que le meto es env
-		//free_struct(&shell); //no se está creando la estructura shell
+		parse_input(&shell, line);
+		// aquí va la ejecución
 		free(line);
+		free_cmd_list(&shell);
 	}
+	free_struct(&shell);
 	return (EXIT_SUCCESS);
 }

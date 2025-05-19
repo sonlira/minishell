@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   split_ignoring_quotes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:10:56 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/05/15 10:16:37 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:54:16 by abaldelo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -45,14 +45,14 @@ static size_t	count_words(char const *s, char c)
 	return (count);
 }
 
-bool	split_ignoring_quotes(char const *s, char ***matrix)
+bool	split_ignoring_quotes(t_shell *shell, char const *s, char ***matrix)
 {
 	size_t	i;
 	char	c;
 
 	i = 0;
 	c = 32;
-	if (!s || !matrix || !are_valid_quotes(s))
+	if (!s || !matrix || !are_valid_quotes(shell, s))
 		return (false);
 	*matrix = ft_calloc((count_words(s, c) + 1), sizeof(char *));
 	if (!*matrix)

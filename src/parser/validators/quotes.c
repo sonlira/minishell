@@ -6,11 +6,28 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:03:02 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 21:22:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:01:53 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	check_quotes(t_shell *shell, int dquote, int quote)
+{
+	char	c;
+
+	c = 34;
+	if ((dquote % 2 == 0) && (quote % 2 == 0))
+	{
+		shell->last_exit = EXIT_OK;
+		return (true);
+	}
+	if (dquote % 2 == 0)
+		c = 39;
+	ft_eprintf("minishell: syntax error: missing closing quote for `%c`\n", c);
+	shell->last_exit = INVALID;
+	return (false);
+}
 
 static size_t	count_and_skip_quoted(char *s, int c, size_t i, int *count)
 {
@@ -23,7 +40,7 @@ static size_t	count_and_skip_quoted(char *s, int c, size_t i, int *count)
 	return (i);
 }
 
-bool	are_valid_quotes(const char *s)
+bool	are_valid_quotes(t_shell *shell, const char *s)
 {
 	int		quote;
 	int		dquote;
@@ -40,22 +57,5 @@ bool	are_valid_quotes(const char *s)
 			i = count_and_skip_quoted((char *)s, 34, i, &dquote);
 		i++;
 	}
-	return ((dquote % 2 == 0) && (quote % 2 == 0));
-}
-
-bool	is_empty_quote(const char *str)
-{
-	size_t	i;
-	char	quote;
-
-	if (!str || !*str)
-		return (false);
-	i = 0;
-	quote = str[i];
-	while (str[++i] && str[i] != quote)
-	{
-		if (str[i] != 32)
-			return (false);
-	}
-	return (true);
+	return (check_quotes(shell, dquote, quote));
 }

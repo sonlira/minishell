@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 22:58:08 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:46:31 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ static void	copy_quoted_content(const char *s, char *d, size_t *i, size_t *j)
 
 	end = *i;
 	ft_find_rawchar(s, s[*i], &end);
-	while (*i <= end)
+	if (*i + 1 == end)
 	{
-		d[*j] = s[*i];
-		*i += 1;
-		*j += 1;
+		*i = end + 1;
+		return ;
 	}
+	while (*i <= end)
+		d[(*j)++] = s[(*i)++];
 }
 
 static bool	is_operator(int c)
@@ -31,13 +32,34 @@ static bool	is_operator(int c)
 	return (c == 59 || c == 60 || c == 62 || c == 124);
 }
 
-char	*format_prompt_str(const char *s)
+static void	space_operators(const char *s, char *dst, size_t *i, size_t *j)
+{
+	dst[(*j)++] = 32;
+	while (s[*i] && is_operator(s[*i]))
+	{
+		if (s[*i] == '<' && s[*i + 1] && s[*i + 1] == '<')
+		{
+			dst[(*j)++] = s[(*i)++];
+			dst[(*j)++] = s[(*i)++];
+		}
+		else if (s[*i] == '>' && s[*i + 1] && s[*i + 1] == '>')
+		{
+			dst[(*j)++] = s[(*i)++];
+			dst[(*j)++] = s[(*i)++];
+		}
+		else
+			dst[(*j)++] = s[(*i)++];
+		dst[(*j)++] = 32;
+	}
+}
+
+bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 {
 	size_t	i;
 	size_t	j;
 	char	dst[BUFF_SIZE];
 
-	if (!s || !are_valid_quotes(s))
+	if (!dest || !s || !are_valid_quotes(shell, s))
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -49,12 +71,23 @@ char	*format_prompt_str(const char *s)
 				copy_quoted_content(s, dst, &i, &j);
 			else
 				dst[j++] = s[i++];
+			if (is_operator(s[i]) && s[i - 1] == 92)
+				dst[j++] = s[i++];
 		}
-		dst[j++] = 32;
-		while (s[i] && is_operator(s[i]))
-			dst[j++] = s[i++];
-		dst[j++] = 32;
+		space_operators(s, dst, &i, &j);
 	}
 	dst[j] = 0;
-	return (ft_strdup(dst));
+	return (ft_set_string(dest, dst));
+}
+
+bool	has_non_whitespace(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] == 32)
+		i++;
+	if (!s[i])
+		return (false);
+	return (true);
 }
