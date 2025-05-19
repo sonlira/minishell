@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:00:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/15 12:19:05 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:52:56 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_cmd
 	bool			append; // 1 si es >>, 0 si es >
 	bool			heredoc; // 1 si el token es '<<' (heredoc), 0 si no
 	char			*delimiter; // delimitador del heredoc (ej: "EOF")
-	bool			quoted; // 1 si el delimitador está entre comillas, 0 si no
+	bool			is_quoted;//1 si el delimitador está entre comillas, 0 si no
 	struct s_cmd	*next; // Apunta al siguiente comando (en caso de pipes)
 }	t_cmd;
 
@@ -33,5 +33,12 @@ typedef struct s_shell
 	bool	running; // Flag para saber si la shell debe seguir ejecutándose
 	t_cmd	**cmd_list; // Lista enlazada de comandos parseados
 }	t_shell;
+
+typedef struct s_iterator
+{
+	size_t	i;
+	size_t	j;
+	size_t	k;
+}	t_iterator;
 
 #endif

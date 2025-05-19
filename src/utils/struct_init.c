@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_utils.c                                     :+:      :+:    :+:   */
+/*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/15 12:56:47 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:35:34 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ t_cmd	*create_cmd_struct(void)
 	cmd->append = false;
 	cmd->heredoc = false;
 	cmd->delimiter = NULL;
-	cmd->quoted = false;
+	cmd->is_quoted = false;
 	cmd->next = NULL;
 	return (cmd);
 }
 
-bool	create_cmd_array(t_shell *shell, size_t size)
+bool	create_cmd_list(t_shell *shell, size_t size)
 {
 	size_t	i;
 
@@ -55,50 +55,9 @@ bool	create_cmd_array(t_shell *shell, size_t size)
 	while (i < size)
 	{
 		shell->cmd_list[i] = create_cmd_struct();
+		if (!shell->cmd_list[i])
+			return (free_cmd_list(shell), false);
 		i++;
 	}
 	return (true);
-}
-
-static void	free_cmd(t_cmd *cmd, t_cmd *tmp)
-{
-	if (cmd->next)
-		tmp = cmd->next;
-	if (cmd->args)
-		ft_free_split(&cmd->args);
-	if (cmd->outfile)
-		ft_free_split(&cmd->outfile);
-	if (cmd->cmd)
-		free(cmd->cmd);
-	if (cmd->infile)
-		free(cmd->infile);
-	if (cmd->delimiter)
-		free(cmd->delimiter);
-}
-
-void	free_struct(t_shell *shell)
-{
-	size_t	i;
-	t_cmd	*tmp;
-	t_cmd	*cmd;
-
-	if (shell->env_cpy)
-		ft_free_split(&shell->env_cpy);
-	i = 0;
-	if (shell->cmd_list)
-	{
-		while (shell->cmd_list[i])
-		{
-			cmd = shell->cmd_list[i];
-			while (cmd)
-			{
-				tmp = NULL;
-				free_cmd(cmd, tmp);
-				cmd = tmp;
-			}
-			free(shell->cmd_list[i]);
-			i++;
-		}
-		free(shell->cmd_list);
-	}
 }
