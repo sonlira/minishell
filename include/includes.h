@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:59:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 21:19:35 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/22 21:19:21 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <errno.h>
 
 #endif
