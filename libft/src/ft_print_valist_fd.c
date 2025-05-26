@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:44:50 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:18:49 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:44:10 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_print_valist_fd(int fd, char const *str, va_list args)
 			if (str[i])
 				len += args_format(str[i], args, fd);
 			else
-				len += ft_putchar_fd('%', fd);
+				break ;
 		}
 		i++;
 	}

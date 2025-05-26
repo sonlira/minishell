@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 19:01:36 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:35:02 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # include <limits.h>
 # include <stdarg.h>
 # include <stdbool.h>
+
+typedef struct s_fmtbuf
+{
+	char	*buf;
+	size_t	size;
+	size_t	it;
+	int		len;
+}	t_fmtbuf;
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
@@ -76,5 +84,11 @@ void		ft_print_str_array(char **array);
 bool		ft_find_rawchar(const char *s, int c, size_t *idx);
 int			ft_count_elements(const char **matrix);
 bool		ft_set_string(char **dest, const char *src);
+int			ft_snprintf(char *buf, size_t size, const char *format, ...);
+void		ft_putunbr_sn(t_fmtbuf *fmt, unsigned int num);
+void		ft_putptr_sn(t_fmtbuf *fmt, void *ptr);
+void		ft_puthex_sn(t_fmtbuf *fmt, unsigned long long num, char base);
+void		ft_putchar_sn(t_fmtbuf *fmt, int c);
+void		ft_putstr_sn(t_fmtbuf *fmt, char *str);
 
 #endif
