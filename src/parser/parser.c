@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 20:02:18 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:51:16 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ static bool	fill_cmd(t_cmd *cmd, char **split, size_t *i)
 		{
 			ft_set_string(&cmd->cmd, cmd->args[0]);
 			cmd->next = create_cmd_struct();
+			if (!cmd->next)
+				return (false);
+			cmd->next->prev = cmd;
 			++(*i);
 			if (!fill_cmd(cmd->next, split, i))
 				return (false);
@@ -123,6 +126,7 @@ bool	parse_input(t_shell *shell, const char *input)
 	char	*input_format;
 	char	**matrix;
 
+	input_format = NULL;
 	if (!shell || !input)
 		return (false);
 	if (!has_non_whitespace(input))
@@ -137,9 +141,10 @@ bool	parse_input(t_shell *shell, const char *input)
 		return (false);
 	if (split_valid_semicolons(shell, input_format, &matrix))
 	{
-		fill_t_shell(shell, matrix);
-		ft_free_split(&matrix);
+		if (!fill_t_shell(shell, matrix))
+			return (free(input_format), ft_free_split(&matrix), false);
 	}
 	free(input_format);
+	ft_free_split(&matrix);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 19:44:59 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/26 22:37:42 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_cmd	*create_cmd_struct(void)
 bool	create_cmd_list(t_shell *shell, size_t size)
 {
 	size_t	i;
-	size_t	prev;
 
 	shell->cmd_list = ft_calloc((size + 1), sizeof(t_cmd));
 	if (!shell->cmd_list)
