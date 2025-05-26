@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:09 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 17:56:39 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:31:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	free_struct(t_shell *shell);
 void	free_cmd_list(t_shell *shell);
 bool	array_push(char ***array, const char *value);
 bool	array_unshift(char ***array, const char *value);
+bool	create_matrix(int ***matrix, size_t rows, size_t cols);
+void	free_matrix(int ***matrix, size_t size);
 
 #endif
