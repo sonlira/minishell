@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 22:59:48 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:04:47 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,33 @@ static size_t	count_commands(t_cmd *cmd)
 	return (count);
 }
 
-// bool	get_infile_fd(t_cmd *cmd, int *fd)
-// {
-// }
-
 void	run_cmd(t_cmd *cmd, int **pipes, char **env)
 {
-	int	infile;
-	int	outfile;
-	int	herdoc[2];
+	int	fd_infile;
+	int	fd_outfile;
+	int	fd_herdoc;
+	size_t	i;
 
+	i = 0;
+	if (cmd->infile)
+		fd_infile = open(cmd->infile, O_RDONLY);
+	if (cmd->outfile)
+	{
+		if (cmd->append)
+			fd_outfile = open(cmd->outfile[i++], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			fd_outfile = open(cmd->outfile[i++], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		while (cmd->outfile[i])
+		{
+			open(cmd->outfile[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			close(cmd->outfile[i]);
+			i++;
+		}
+	}
+	
+	
 	// if (cmd->prev == NULL)
-
+	
 }
 
 void	execute_pipeline(t_shell *shell, t_cmd *cmd)
@@ -46,8 +61,8 @@ void	execute_pipeline(t_shell *shell, t_cmd *cmd)
 	int		**pipes;
 	pid_t	*pids;
 
-	pids = NULL;
-	pipes = NULL;
+	// pids = NULL;
+	// pipes = NULL;
 	size = count_commands(cmd);
 	init_pipes(&pipes, (size - 1));
 	if (!init_forks(&pids, size))
@@ -61,7 +76,7 @@ void	execute_pipeline(t_shell *shell, t_cmd *cmd)
 		}
 		i++;
 	}
-	cleanup_forks(&pids, size);
+	wait_and_free_forks(&pids, size);
 	destroy_pipes(&pipes, (size - 1));
 }
 

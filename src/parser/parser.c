@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 19:51:16 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:23:46 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static bool	expand_and_clean(t_shell *shell, t_cmd *cmd, char ***args)
 		expander_dollar_args(shell, &(*args)[i], true);
 		if (!ft_strcmp((*args)[i], "<<"))
 		{
-			if (ft_has_rawchar((*args)[i + 1], 34))
+			if (ft_is_rawchar((*args)[i + 1], 34))
 				cmd->is_quoted = true;
-			else if (ft_has_rawchar((*args)[i + 1], 39))
+			else if (ft_is_rawchar((*args)[i + 1], 39))
 				cmd->is_quoted = true;
 		}
 		remove_quotes_and_backslashes(shell, &(*args)[i]);

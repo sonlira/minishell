@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:48:41 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 20:01:40 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:56:07 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	expander_dquote(char *s, char *d, t_iterator *it, t_shell *shell)
 	end = it->i;
 	ft_find_rawchar(s, s[it->i], &end);
 	str = ft_substr(s, it->i, (end - it->i));
-	if (ft_has_rawchar(str, '$'))
+	if (ft_is_rawchar(str, '$'))
 	{
 		i = 0;
 		expander_dollar_args(shell, &str, false);
@@ -34,6 +34,22 @@ static void	expander_dquote(char *s, char *d, t_iterator *it, t_shell *shell)
 	{
 		while (it->i <= end)
 			d[it->j++] = s[it->i++];
+	}
+}
+
+static void check_name(char **name, const char *s, t_iterator *it, size_t *i)
+{
+	if (s[it->i] && (ft_isalpha(s[it->i]) || s[it->i] == '_'))
+	{
+		while (s[it->i] && (ft_isalnum(s[it->i]) || s[it->i] == '_'))
+			*name[(*i)++] = s[it->i++];
+		*name[(*i)++] = 0;
+	}
+	else
+	{
+		while (s[it->i] && ft_isdigit(s[it->i]))
+			*name[(*i)++] = s[it->i++];
+		*name[(*i)++] = 0;
 	}
 }
 
@@ -54,9 +70,7 @@ static void	expander_dollar(const char *s, char *d, t_iterator *it, t_shell *sh)
 	}
 	else
 	{
-		while (s[it->i] && (ft_isalnum(s[it->i]) || s[it->i] == '_'))
-			name[iter.j++] = s[it->i++];
-		name[iter.j] = 0;
+		check_name(&name, s, it, &iter.j);
 		value = get_env_value(sh->env_cpy, name);
 		while (value && value[iter.i])
 			d[it->j++] = value[iter.i++];
@@ -65,7 +79,7 @@ static void	expander_dollar(const char *s, char *d, t_iterator *it, t_shell *sh)
 		free(value);
 }
 
-static void	is_quoted_prov(char *s, char *d, t_iterator *it, t_shell *shell)
+static void	is_quoted_expand(char *s, char *d, t_iterator *it, t_shell *shell)
 {
 	size_t	end;
 
@@ -87,14 +101,14 @@ bool	expander_dollar_args(t_shell *shell, char **s, bool quote)
 
 	if (!s || (quote && !are_valid_quotes(shell, *s)))
 		return (NULL);
-	if ((*s)[0] != '$' && !ft_has_rawchar(*s, '$'))
+	if ((*s)[0] != '$' && !ft_is_rawchar(*s, '$'))
 		return (false);
 	it.i = 0;
 	it.j = 0;
 	while ((*s)[it.i])
 	{
 		if (quote == true && ((*s)[it.i] == 34 || (*s)[it.i] == 39))
-			is_quoted_prov(*s, dst, &it, shell);
+			is_quoted_expand(*s, dst, &it, shell);
 		else if ((*s)[it.i] == 92 && (*s)[it.i + 1])
 		{
 			dst[it.j++] = (*s)[it.i++];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:15:43 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 21:00:20 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:19:42 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	wait_forks(pid_t **pids, size_t size)
 	}
 }
 
-void	cleanup_forks(pid_t **pids, size_t size)
+void	wait_and_free_forks(pid_t **pids, size_t size)
 {
 	if (!pids || size < 1)
 		return ;

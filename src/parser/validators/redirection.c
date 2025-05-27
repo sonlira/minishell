@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:25:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 19:56:09 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:23:46 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ static bool	is_operator(char *s)
 	return (false);
 }
 
-static bool	has_redirection(const char *s)
+static bool	is_redirection(const char *s)
 {
 	bool	has_redirection;
 
 	has_redirection = false;
-	if (ft_has_rawchar(s, 60))
+	if (ft_is_rawchar(s, 60))
 		has_redirection = true;
-	else if (ft_has_rawchar(s, 62))
+	else if (ft_is_rawchar(s, 62))
 		has_redirection = true;
 	return (has_redirection);
 }
@@ -60,7 +60,7 @@ bool	are_valid_redirection(t_shell *shell, const char *s)
 
 	if (!s)
 		return (false);
-	if (!has_redirection(s))
+	if (!is_redirection(s))
 		return (true);
 	if (!split_ignoring_quotes(shell, s, &args))
 		return (false);

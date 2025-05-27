@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+         #
+#    By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/28 07:55:52 by abaldelo          #+#    #+#              #
-#    Updated: 2025/05/26 14:36:22 by abaldelo         ###   ########.fr        #
+#    Updated: 2025/05/27 12:00:27 by bgil-fer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC		= src/ft_atoi.c src/ft_atoll.c src/ft_bzero.c src/ft_calloc.c src/ft_isalnu
 		src/ft_strtrim.c src/ft_split.c src/ft_free_split.c src/ft_itoa.c src/ft_strmapi.c src/ft_striteri.c\
 		src/ft_putchar_fd.c src/ft_putstr_fd.c src/ft_putendl_fd.c src/ft_putnbr_fd.c src/ft_putunbr_fd.c src/ft_puthex_fd.c src/ft_putptr_fd.c\
 		src/ft_printf_fd.c src/ft_printf_error.c src/ft_print_valist_fd.c src/get_next_line.c src/ft_count_elements.c\
-		src/ft_count_char.c src/ft_has_rawchar.c src/ft_print_str_array.c src/ft_find_rawchar.c src/ft_set_string.c src/ft_snprintf.c\
+		src/ft_count_char.c src/ft_is_rawchar.c src/ft_print_str_array.c src/ft_find_rawchar.c src/ft_set_string.c src/ft_snprintf.c\
 		src/ft_snprintf_utils.c
 
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))

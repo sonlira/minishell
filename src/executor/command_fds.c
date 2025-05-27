@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   command_fds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 22:43:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/27 13:19:42 by bgil-fer         ###   ########.fr       */
+/*   Created: 2025/05/27 12:45:18 by bgil-fer          #+#    #+#             */
+/*   Updated: 2025/05/27 13:07:43 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#include "minishell.h"
 
-void	execute_shell_command(t_shell *shell);
-int		ft_execvp(const char *cmd, char *const *args, char *const *envp);
-bool	init_pipes(int ***pipes, size_t size);
-void	close_pipes(int **pipes, size_t size);
-void	destroy_pipes(int ***pipes, size_t size);
-bool	init_forks(pid_t **pids, size_t size);
-void	wait_and_free_forks(pid_t **pids, size_t size);
+bool	prov_infile_fd(t_cmd *cmd, int *fd)
+{
+   return (true); 
+}
 
-#endif
+bool    prov_outfile_fd(t_cmd *cmd, int *fd)
+{
+    return (true);
+}
+
+bool    prov_heredoc_fd(t_cmd *cmd, int *fd)
+{
+    int pipes[2];
+
+    if (pipe(pipes))
+        
+    return (true);
+}

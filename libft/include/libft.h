@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 14:35:02 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:23:46 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			ft_eprintf(char const *str, ...);
 int			ft_print_valist_fd(int fd, char const *str, va_list args);
 char		*get_next_line(int fd);
 int			ft_count_char(const char *str, int c);
-bool		ft_has_rawchar(const char *s, int c);
+bool		ft_is_rawchar(const char *s, int c);
 void		ft_print_str_array(char **array);
 bool		ft_find_rawchar(const char *s, int c, size_t *idx);
 int			ft_count_elements(const char **matrix);
