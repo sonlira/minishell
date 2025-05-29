@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/22 11:44:32 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:51:39 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 volatile sig_atomic_t g_signal = 0;
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp) // falta implementar señales
 {
 	char	*line;
 	t_shell	shell;
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	while (shell.running)
 	{
 		setup_signals();
-		printf("signal = %d\n", g_signal);
 		line = readline("minishell> ");
 		if (!line)
 			break ; // Ctrl+D
