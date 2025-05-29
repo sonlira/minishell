@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:59:19 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:13:52 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/29 23:15:41 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	export_vars(char **agrs, char ***env)
 	{
 		if (!is_validname(agrs[i]))
 		{
-			printf("minishell: export: %s: is not a valid identifier", agrs[i]);
+			ft_eprintf("minishell: export: ");
+			ft_eprintf("%s: is not a valid identifier\n", agrs[i]);
 			error++;
 		}
 		else
