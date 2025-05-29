@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:02:42 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/22 21:33:11 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/29 21:08:14 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	get_path_dirs(char *const *envp, char ***array)
 {
 	char	*path;
 
-	path = get_env_value(envp, "PATH");
+	path = get_env_value((char **)envp, "PATH");
 	if (!path)
 		return (false);
 	*array = ft_split(path, ':');
@@ -45,7 +45,5 @@ int	ft_execvp(const char *cmd, char *const *args, char *const *envp)
 		i++;
 	}
 	errno = ENOENT;
-	return (ft_free_split(dir), ERROR);
+	return (ft_free_split(&dir), ERROR);
 }
-
-// ft_eprintf("minishell: %s: %s\n", cmd, strerror(errno));

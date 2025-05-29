@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:26:05 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 22:48:01 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/28 23:07:11 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	init_pipes(int ***pipes, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		if (pipe((**pipes)[i]) == -1)
+		if (pipe((*pipes)[i]) == -1)
 			return (destroy_pipes(pipes, i), false);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/27 13:19:42 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:29:35 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@ int		ft_execvp(const char *cmd, char *const *args, char *const *envp);
 bool	init_pipes(int ***pipes, size_t size);
 void	close_pipes(int **pipes, size_t size);
 void	destroy_pipes(int ***pipes, size_t size);
-bool	init_forks(pid_t **pids, size_t size);
-void	wait_and_free_forks(pid_t **pids, size_t size);
+bool	init_forks(t_shell *shell, t_cmd *cmd, \
+		void (*child_fn)(t_shell *, t_cmd *, size_t idx));
+void	wait_and_free_forks(pid_t **pids, size_t size, int *status);
+bool	open_infile_if_needed(t_cmd *cmd, int *fd);
+bool	open_outfile_if_needed(t_cmd *cmd, int *fd);
+bool	handle_heredoc(t_shell *shell, t_cmd *cmd, int *fd_read);
+void	execute_simple_cmd(t_shell *shell, t_cmd *cmd);
+void	execute_piped_cmd(t_shell *shell, t_cmd *cmd, int **pipes, size_t idx);
 
 #endif

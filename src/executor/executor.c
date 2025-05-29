@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/27 14:04:47 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:45:34 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,70 +25,46 @@ static size_t	count_commands(t_cmd *cmd)
 	return (count);
 }
 
-void	run_cmd(t_cmd *cmd, int **pipes, char **env)
+static void	child_execution(t_shell *sh, t_cmd *cmd, size_t idx)
 {
-	int	fd_infile;
-	int	fd_outfile;
-	int	fd_herdoc;
-	size_t	i;
-
-	i = 0;
-	if (cmd->infile)
-		fd_infile = open(cmd->infile, O_RDONLY);
-	if (cmd->outfile)
-	{
-		if (cmd->append)
-			fd_outfile = open(cmd->outfile[i++], O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			fd_outfile = open(cmd->outfile[i++], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		while (cmd->outfile[i])
-		{
-			open(cmd->outfile[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			close(cmd->outfile[i]);
-			i++;
-		}
-	}
-	
-	
-	// if (cmd->prev == NULL)
-	
+	if (sh->pipes)
+		execute_piped_cmd(sh, cmd, sh->pipes, idx);
+	else
+		execute_simple_cmd(sh, cmd);
 }
 
 void	execute_pipeline(t_shell *shell, t_cmd *cmd)
 {
-	size_t	size;
-	size_t	i;
-	int		**pipes;
-	pid_t	*pids;
+	int		status;
 
-	// pids = NULL;
-	// pipes = NULL;
-	size = count_commands(cmd);
-	init_pipes(&pipes, (size - 1));
-	if (!init_forks(&pids, size))
-		return ;
-	while (i < size)
+	status = 0;
+	shell->cmd_count = count_commands(cmd);
+	if (shell->cmd_count > 1)
 	{
-		if (pids[i] == 0)
-		{
-			run_cmd(cmd, pipes, shell->env_cpy);
-			exit(EXIT_OK);
-		}
-		i++;
+		if (!init_pipes(&shell->pipes, (shell->cmd_count - 1)))
+			return ;
 	}
-	wait_and_free_forks(&pids, size);
-	destroy_pipes(&pipes, (size - 1));
+	if (!init_forks(shell, cmd, child_execution))
+		return (destroy_pipes(&shell->pipes, (shell->cmd_count - 1)));
+	if (shell->pipes)
+		destroy_pipes(&shell->pipes, (shell->cmd_count - 1));
+	wait_and_free_forks(&shell->pids, shell->cmd_count, &status);
+	if (WIFEXITED(status))
+		shell->last_exit = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->last_exit = 128 + WTERMSIG(status);
 }
 
 void	execute_shell_command(t_shell *shell)
 {
 	size_t	i;
 
+	if (!shell || !shell->cmd_list)
+		return ;
 	i = 0;
 	while (shell->cmd_list[i])
 	{
 		execute_pipeline(shell, shell->cmd_list[i]);
 		i++;
 	}
-	return ;
 }
