@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:03:02 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 20:01:53 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:34:59 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static bool	check_quotes(t_shell *shell, int dquote, int quote)
 
 	c = 34;
 	if ((dquote % 2 == 0) && (quote % 2 == 0))
-	{
-		shell->last_exit = EXIT_OK;
 		return (true);
-	}
 	if (dquote % 2 == 0)
 		c = 39;
 	ft_eprintf("minishell: syntax error: missing closing quote for `%c`\n", c);

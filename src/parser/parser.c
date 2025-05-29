@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/27 11:23:46 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:37:58 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ static bool	expand_and_clean(t_shell *shell, t_cmd *cmd, char ***args)
 	while ((*args)[i])
 	{
 		expander_dollar_args(shell, &(*args)[i], true);
+		if (!ft_strcmp((*args)[i], "<"))
+			cmd->last_redir = REDIR_INFILE;
 		if (!ft_strcmp((*args)[i], "<<"))
 		{
+			cmd->last_redir = REDIR_HEREDOC;
 			if (ft_is_rawchar((*args)[i + 1], 34))
 				cmd->is_quoted = true;
 			else if (ft_is_rawchar((*args)[i + 1], 39))

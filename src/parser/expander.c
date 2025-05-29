@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:48:41 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/27 12:56:07 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:40:01 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,18 @@ static void	expander_dquote(char *s, char *d, t_iterator *it, t_shell *shell)
 	}
 }
 
-static void check_name(char **name, const char *s, t_iterator *it, size_t *i)
+static void	extract_var_name(char *name, char *s, t_iterator *it, size_t *i)
 {
 	if (s[it->i] && (ft_isalpha(s[it->i]) || s[it->i] == '_'))
 	{
 		while (s[it->i] && (ft_isalnum(s[it->i]) || s[it->i] == '_'))
-			*name[(*i)++] = s[it->i++];
-		*name[(*i)++] = 0;
+			name[(*i)++] = s[it->i++];
+		name[(*i)++] = 0;
 	}
 	else
 	{
-		while (s[it->i] && ft_isdigit(s[it->i]))
-			*name[(*i)++] = s[it->i++];
-		*name[(*i)++] = 0;
+		name[(*i)++] = s[it->i++];
+		name[(*i)++] = 0;
 	}
 }
 
@@ -59,8 +58,7 @@ static void	expander_dollar(const char *s, char *d, t_iterator *it, t_shell *sh)
 	char		name[BUFF_SIZE];
 	char		*value;
 
-	iter.i = 0;
-	iter.j = 0;
+	init_iterator(&iter);
 	if (s[++it->i] == '?')
 	{
 		value = ft_itoa(sh->last_exit);
@@ -70,7 +68,7 @@ static void	expander_dollar(const char *s, char *d, t_iterator *it, t_shell *sh)
 	}
 	else
 	{
-		check_name(&name, s, it, &iter.j);
+		extract_var_name(name, (char *)s, it, &iter.j);
 		value = get_env_value(sh->env_cpy, name);
 		while (value && value[iter.i])
 			d[it->j++] = value[iter.i++];
@@ -103,8 +101,7 @@ bool	expander_dollar_args(t_shell *shell, char **s, bool quote)
 		return (NULL);
 	if ((*s)[0] != '$' && !ft_is_rawchar(*s, '$'))
 		return (false);
-	it.i = 0;
-	it.j = 0;
+	init_iterator(&it);
 	while ((*s)[it.i])
 	{
 		if (quote == true && ((*s)[it.i] == 34 || (*s)[it.i] == 39))

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:12:33 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 21:18:48 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:36:06 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool	are_valid_delims(t_shell *sh, const char *s, int delim, size_t *total)
 			i++;
 	}
 	*total = count;
-	sh->last_exit = EXIT_OK;
 	return (true);
 }
 
