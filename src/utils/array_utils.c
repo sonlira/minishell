@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 19:02:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 21:19:34 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:17:46 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ bool	array_push(char ***array, const char *value)
 	new_array = ft_calloc((size + 2), sizeof(char *));
 	if (!new_array)
 		return (false);
-	it.i = 0;
-	it.j = 0;
+	init_iterator(&it);
 	while (size != 0 && (*array)[it.i])
 	{
 		new_array[it.j] = ft_strdup((*array)[it.i++]);
@@ -52,11 +51,10 @@ bool	array_unshift(char ***array, const char *value)
 	new_array = ft_calloc((size + 2), sizeof(char *));
 	if (!new_array)
 		return (false);
-	new_array[0] = ft_strdup(value);
-	if (!new_array[0])
+	init_iterator(&it);
+	new_array[it.j] = ft_strdup(value);
+	if (!new_array[it.j++])
 		return (ft_free_split(&new_array), false);
-	it.i = 0;
-	it.j = 1;
 	while (size != 0 && (*array)[it.i])
 	{
 		new_array[it.j] = ft_strdup((*array)[it.i++]);

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 22:37:42 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:03:49 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ bool	init_shell_struct(t_shell *shell, char **envp)
 	shell->last_exit = 0;
 	shell->running = true;
 	shell->cmd_list = NULL;
+	shell->cmd_count = 0;
+	shell->pids = NULL;
+	shell->pipes = NULL;
 	return (true);
 }
 
@@ -40,6 +43,7 @@ t_cmd	*create_cmd_struct(void)
 	cmd->heredoc = false;
 	cmd->delimiter = NULL;
 	cmd->is_quoted = false;
+	cmd->last_redir = REDIR_NONE;
 	cmd->next = NULL;
 	cmd->prev = NULL;
 	return (cmd);
@@ -61,4 +65,22 @@ bool	create_cmd_list(t_shell *shell, size_t size)
 		i++;
 	}
 	return (true);
+}
+
+void	init_iterator(t_iterator *it)
+{
+	if (!it)
+		return ;
+	it->i = 0;
+	it->j = 0;
+	it->k = 0;
+}
+
+void	init_cmd_fds(t_cmd_fds *fds)
+{
+	if (!fds)
+		return ;
+	fds->heredoc = -1;
+	fds->infile = -1;
+	fds->outfile = -1;
 }
