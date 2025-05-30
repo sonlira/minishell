@@ -6,18 +6,18 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:51 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 12:24:09 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:06:49 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	init_copy(char **dest, const char **orig)
+bool	init_copy(char **dest, const char **orig)
 {
 	size_t	i;
 
 	if (!orig || !dest)
-		return (FAILURE);
+		return (false);
 	i = 0;
 	while (orig[i])
 	{
@@ -25,11 +25,11 @@ int	init_copy(char **dest, const char **orig)
 		if (!dest[i])
 		{
 			free_partial_env(dest, i);
-			return (FAILURE);
+			return (false);
 		}
 		i++;
 	}
-	return (SUCCESS);
+	return (true);
 }
 
 char	**copy_env(const char **envp)

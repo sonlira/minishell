@@ -6,22 +6,22 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:59:48 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/05 20:20:05 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:49:56 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	variable_name_is_equal(char *var, const char *name)
+bool	variable_name_is_equal(char *var, const char *name)
 {
 	size_t	len;
 
 	if (!var || !name)
-		return (FAILURE);
+		return (false);
 	len = ft_strlen(name);
 	if (!ft_strncmp(var, name, len) && var[len] == '=')
-		return (SUCCESS);
-	return (FAILURE);
+		return (true);
+	return (false);
 }
 
 char	*get_env_value(char **env, const char *name)

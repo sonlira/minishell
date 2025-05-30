@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 12:48:59 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 12:22:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:08:38 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*format(const char *name, const char *value) //Dar formato tipo NOMB
 	return (result);
 }
 
-static int	update_value(char ***env, const char *name, char *new_var)
+static bool	update_value(char ***env, const char *name, char *new_var)
 {
 	size_t	i;
 
@@ -36,14 +36,14 @@ static int	update_value(char ***env, const char *name, char *new_var)
 		{
 			free((*env)[i]);
 			(*env)[i] = new_var;
-			return (SUCCESS);
+			return (true);
 		}
 		i++;
 	}
-	return (FAILURE);
+	return (false);
 }
 
-static int	add_var(char ***env, char *new_var)
+static bool	add_var(char ***env, char *new_var)
 {
 	char	**new_env;
 	int		size;
@@ -51,29 +51,29 @@ static int	add_var(char ***env, char *new_var)
 	size = ft_count_elements((const char **)(*env));
 	new_env = malloc((size + 2) * sizeof(char *));
 	if (!new_env)
-		return (FAILURE);
+		return (false);
 	if (!init_copy(new_env, (const char **)(*env)))
-		return (FAILURE);
+		return (false);
 	new_env[size] = new_var;
 	new_env[size + 1] = NULL;
 	free_env(env);
 	*env = new_env;
-	return (SUCCESS);
+	return (true);
 }
 
-int	set_env_var(char ***env, const char *name, const char *value)
+bool	set_env_var(char ***env, const char *name, const char *value)
 {
 	char	*new_var;
 
 	if (!env || !*env || !name)
-		return (FAILURE);
+		return (false);
 	new_var = format(name, value);
 	if (!new_var)
-		return (FAILURE);
+		return (false);
 	if (update_value(env, name, new_var))
-		return (SUCCESS);
+		return (true);
 	if (add_var(env, new_var))
-		return (SUCCESS);
+		return (true);
 	free(new_var);
-	return (FAILURE);
+	return (false);
 }

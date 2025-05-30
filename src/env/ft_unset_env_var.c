@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:43:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/13 12:22:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:47:53 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	find_name(char **env, const char *name)
 	return (ERROR);
 }
 
-static int	copy_without_var(char **dest, char **orig, size_t skip_idx)
+static bool	copy_without_var(char **dest, char **orig, size_t skip_idx)
 {
 	size_t	i;
 	size_t	j;
@@ -41,16 +41,16 @@ static int	copy_without_var(char **dest, char **orig, size_t skip_idx)
 			if (!dest[j])
 			{
 				free_partial_env(dest, j);
-				return (FAILURE);
+				return (false);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (SUCCESS);
+	return (true);
 }
 
-static int	delete_var(char ***env, const char *name)
+static bool	delete_var(char ***env, const char *name)
 {
 	char	**new_env;
 	size_t	size;
@@ -58,24 +58,24 @@ static int	delete_var(char ***env, const char *name)
 
 	idx = find_name(*env, name);
 	if (idx == ERROR)
-		return (FAILURE);
+		return (false);
 	size = ft_count_elements((const char **)(*env));
 	new_env = malloc(size * sizeof(char *));
 	if (!new_env)
-		return (FAILURE);
+		return (false);
 	if (!copy_without_var(new_env, *env, idx))
-		return (FAILURE);
+		return (false);
 	new_env[size - 1] = NULL;
 	free_env(env);
 	*env = new_env;
-	return (SUCCESS);
+	return (true);
 }
 
-int	unset_env_var(char ***env, const char *name)
+bool	unset_env_var(char ***env, const char *name)
 {
 	if (!env || !*env || !name)
-		return (FAILURE);
+		return (false);
 	if (delete_var(env, name))
-		return (SUCCESS);
-	return (FAILURE);
+		return (true);
+	return (false);
 }
