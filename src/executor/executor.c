@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 16:57:21 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:49:16 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	execute_builtin_cmd(t_shell *shell, t_cmd *cmd)
 		return (false);
 	if (cmd->prev || cmd->next)
 		return (false);
-	shell->last_exit = execute_builtin(cmd->args, &shell->env_cpy);
+	shell->last_exit = execute_builtin(shell, cmd);
 	return (true);
 }
 

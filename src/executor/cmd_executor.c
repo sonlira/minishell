@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:32:18 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 15:01:51 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:48:40 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	execute_simple_cmd(t_shell *shell, t_cmd *cmd)
 		exit(EXIT_KO);
 	close_command_fds(shell, fd, 0);
 	if (is_builtin(cmd->cmd))
-		exit(execute_builtin(cmd->args, &shell->env_cpy));
+		exit(execute_builtin(shell, cmd));
 	if (ft_execvp(cmd->cmd, cmd->args, shell->env_cpy) == -1)
 	{
 		ft_eprintf("minishell: %s: %s\n", cmd->cmd, strerror(errno));
@@ -104,7 +104,7 @@ void	execute_piped_cmd(t_shell *shell, t_cmd *cmd, int **pipes, size_t idx)
 		dup2(pipes[idx][1], STDOUT_FILENO);
 	close_command_fds(shell, fd, idx);
 	if (is_builtin(cmd->cmd))
-		exit(execute_builtin(cmd->args, &shell->env_cpy));
+		exit(execute_builtin(shell, cmd));
 	if (ft_execvp(cmd->cmd, cmd->args, shell->env_cpy) == -1)
 	{
 		ft_eprintf("minishell: %s: %s\n", cmd->cmd, strerror(errno));
