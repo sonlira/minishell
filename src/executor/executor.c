@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 22:45:34 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:57:21 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ static size_t	count_commands(t_cmd *cmd)
 	return (count);
 }
 
+static bool	execute_builtin_cmd(t_shell *shell, t_cmd *cmd)
+{
+	if (!is_builtin(cmd->cmd))
+		return (false);
+	if (cmd->outfile || cmd->last_redir != REDIR_NONE)
+		return (false);
+	if (cmd->prev || cmd->next)
+		return (false);
+	shell->last_exit = execute_builtin(cmd->args, &shell->env_cpy);
+	return (true);
+}
+
 static void	child_execution(t_shell *sh, t_cmd *cmd, size_t idx)
 {
 	if (sh->pipes)
@@ -33,10 +45,12 @@ static void	child_execution(t_shell *sh, t_cmd *cmd, size_t idx)
 		execute_simple_cmd(sh, cmd);
 }
 
-void	execute_pipeline(t_shell *shell, t_cmd *cmd)
+static void	execute_pipeline(t_shell *shell, t_cmd *cmd)
 {
 	int		status;
 
+	if (execute_builtin_cmd(shell, cmd))
+		return ;
 	status = 0;
 	shell->cmd_count = count_commands(cmd);
 	if (shell->cmd_count > 1)

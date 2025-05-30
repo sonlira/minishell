@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:32:18 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 21:44:32 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:01:51 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ static bool	setup_command_fds(t_shell *shell, t_cmd *cmd, t_cmd_fds *fd)
 		if (!handle_heredoc(shell, cmd, &fd->heredoc))
 			return (false);
 		if (cmd->last_redir == REDIR_HEREDOC)
-			dup2(fd->heredoc, STDIN);
+			dup2(fd->heredoc, STDIN_FILENO);
 	}
 	if (cmd->infile)
 	{
 		if (!open_infile_if_needed(cmd, &fd->infile))
 			return (false);
 		if (cmd->last_redir == REDIR_INFILE)
-			dup2(fd->infile, STDIN);
+			dup2(fd->infile, STDIN_FILENO);
 	}
 	if (cmd->outfile)
 	{
 		if (!open_outfile_if_needed(cmd, &fd->outfile))
 			return (false);
-		dup2(fd->outfile, STDOUT);
+		dup2(fd->outfile, STDOUT_FILENO);
 	}
 	return (true);
 }
@@ -99,9 +99,9 @@ void	execute_piped_cmd(t_shell *shell, t_cmd *cmd, int **pipes, size_t idx)
 	if (!setup_command_fds(shell, cmd, &fd))
 		exit(EXIT_KO);
 	if (cmd->last_redir == REDIR_NONE && cmd->prev)
-		dup2(pipes[idx - 1][0], STDIN);
+		dup2(pipes[idx - 1][0], STDIN_FILENO);
 	if (!cmd->outfile && cmd->next)
-		dup2(pipes[idx][1], STDOUT);
+		dup2(pipes[idx][1], STDOUT_FILENO);
 	close_command_fds(shell, fd, idx);
 	if (is_builtin(cmd->cmd))
 		exit(execute_builtin(cmd->args, &shell->env_cpy));
