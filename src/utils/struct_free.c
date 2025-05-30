@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 14:08:53 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 17:49:09 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:01:16 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,8 @@ void	free_struct(t_shell *shell)
 		ft_free_split(&shell->env_cpy);
 	if (shell->cmd_list)
 		free_cmd_list(shell);
+	if (shell->pids)
+		wait_and_free_forks(&shell->pids, shell->cmd_count, NULL);
+	if (shell->pipes)
+		destroy_pipes(shell->pipes, (shell->cmd_count - 1));
 }
