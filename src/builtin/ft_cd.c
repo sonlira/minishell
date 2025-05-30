@@ -6,24 +6,24 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:29:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 19:01:36 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:05:29 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	update_oldpwd(char ***env, char *value)
+static bool	update_oldpwd(char ***env, char *value)
 {
 	char	*cwd;
 
 	if (!set_env_var(env, "OLDPWD", value)) //set_env_var actualiza en mi copia de env, la rut en la variable OLDPWD
-		return (free(value), FAILURE);
+		return (free(value), false);
 	cwd = getcwd(NULL, 0); //me da la ruta actual (pwd)
 	if (!cwd)
-		return (free(value), FAILURE);
+		return (free(value), false);
 	if (!set_env_var(env, "PWD", cwd))
-		return (free(value), free(cwd), FAILURE);
-	return (free(value), free(cwd), SUCCESS);
+		return (free(value), free(cwd), false);
+	return (free(value), free(cwd), true);
 }
 
 static int	go_to_env_path(char ***env, const char *name)
@@ -64,7 +64,6 @@ static int	go_path(char **args, char ***env)
 		return (free(pwd), EXIT_KO);
 	}
 	update_oldpwd(env, pwd);
-	free(pwd);
 	return (EXIT_OK);
 }
 
@@ -77,7 +76,7 @@ int	ft_cd(char **args, char ***env)
 		return (go_to_env_path(env, "HOME"));
 	else if (count == 2)
 	{
-		if (ft_strcmp(args[1], "-") == 0) // Si -, vuelve a la ruta anterior
+		if (!ft_strcmp(args[1], "-")) // Si -, vuelve a la ruta anterior
 			return (go_to_env_path(env, "OLDPWD"));
 		return (go_path(args, env));
 	}
