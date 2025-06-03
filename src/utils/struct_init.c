@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 15:03:49 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:36:25 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,11 @@ bool	init_shell_struct(t_shell *shell, char **envp)
 {
 	if (!shell || !envp)
 		return (false);
+	ft_bzero(shell, sizeof(t_shell));
+	shell->running = true;
 	shell->env_cpy = copy_env((const char **)envp);
 	if (!shell->env_cpy)
 		return (false);
-	shell->last_exit = 0;
-	shell->running = true;
-	shell->cmd_list = NULL;
-	shell->cmd_count = 0;
-	shell->pids = NULL;
-	shell->pipes = NULL;
 	return (true);
 }
 
@@ -32,20 +28,10 @@ t_cmd	*create_cmd_struct(void)
 {
 	t_cmd	*cmd;
 
-	cmd = malloc(sizeof(t_cmd));
+	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->cmd = NULL;
-	cmd->args = NULL;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
-	cmd->append = false;
-	cmd->heredoc = false;
-	cmd->delimiter = NULL;
-	cmd->is_quoted = false;
-	cmd->last_redir = REDIR_NONE;
-	cmd->next = NULL;
-	cmd->prev = NULL;
+	init_cmd_fds(&cmd->fd);
 	return (cmd);
 }
 
@@ -71,9 +57,7 @@ void	init_iterator(t_iterator *it)
 {
 	if (!it)
 		return ;
-	it->i = 0;
-	it->j = 0;
-	it->k = 0;
+	ft_bzero(it, sizeof(t_iterator));
 }
 
 void	init_cmd_fds(t_cmd_fds *fds)
