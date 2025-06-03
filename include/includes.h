@@ -6,13 +6,14 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:59:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/22 21:19:21 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:05:50 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
 
+# define _POSIX_C_SOURCE 200809L
 # include "../libft/include/libft.h"
 # include <unistd.h>
 # include <fcntl.h>

@@ -6,13 +6,19 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:00:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 15:03:23 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:30:08 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
+typedef struct s_cmd_fds
+{
+	int	infile;// fd para < input.txt
+	int	outfile;// fd para > output.txt
+	int	heredoc;// fd para << (heredoc)
+}	t_cmd_fds;
 typedef struct s_cmd
 {
 	char			*cmd; // Nombre del comando (ej: "ls")
@@ -24,6 +30,7 @@ typedef struct s_cmd
 	char			*delimiter; // delimitador del heredoc (ej: "EOF")
 	bool			is_quoted;//1 si el delimitador está entre comillas, 0 si no
 	t_redir			last_redir;//guarda el último tipo de redirección de entrada
+	t_cmd_fds		fd;//Estructura que almacena los FDs 
 	struct s_cmd	*next; // Apunta al siguiente comando (en caso de pipes)
 	struct s_cmd	*prev; // punta al anterior comando (en caso de pipes)
 }	t_cmd;
@@ -45,12 +52,5 @@ typedef struct s_iterator
 	size_t	j;
 	size_t	k;
 }	t_iterator;
-
-typedef struct s_cmd_fds
-{
-	int	infile;// fd para < input.txt
-	int	outfile;// fd para > output.txt
-	int	heredoc;// fd para << (heredoc)
-}	t_cmd_fds;
 
 #endif
