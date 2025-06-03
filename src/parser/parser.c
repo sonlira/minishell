@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 22:37:58 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/02 23:45:55 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,24 @@
  60 = <
  62 = >
 */
-static bool	expand_and_clean(t_shell *shell, t_cmd *cmd, char ***args)
+static void	expand_and_clean(t_shell *sh, t_cmd *cmd, char ***args, size_t idx)
 {
-	size_t	i;
-
-	i = 0;
-	while ((*args)[i])
+	expander_dollar_args(sh, &(*args)[idx], true);
+	if (!ft_strcmp((*args)[idx], "<<"))
 	{
-		expander_dollar_args(shell, &(*args)[i], true);
-		if (!ft_strcmp((*args)[i], "<"))
-			cmd->last_redir = REDIR_INFILE;
-		if (!ft_strcmp((*args)[i], "<<"))
-		{
-			cmd->last_redir = REDIR_HEREDOC;
-			if (ft_is_rawchar((*args)[i + 1], 34))
-				cmd->is_quoted = true;
-			else if (ft_is_rawchar((*args)[i + 1], 39))
-				cmd->is_quoted = true;
-		}
-		remove_quotes_and_backslashes(shell, &(*args)[i]);
-		i++;
+		if (ft_is_rawchar((*args)[idx + 1], 34))
+			cmd->is_quoted = true;
+		else if (ft_is_rawchar((*args)[idx + 1], 39))
+			cmd->is_quoted = true;
 	}
-	return (true);
+	remove_quotes_and_backslashes(sh, &(*args)[idx]);
 }
 
 static bool	check_redirection(t_cmd *cmd, char **split, size_t *i)
 {
 	if (!ft_strcmp(split[*i], "<<"))
 	{
+		cmd->last_redir = REDIR_HEREDOC;
 		cmd->heredoc = true;
 		ft_set_string(&cmd->delimiter, split[++(*i)]);
 		return (true);
@@ -62,13 +52,14 @@ static bool	check_redirection(t_cmd *cmd, char **split, size_t *i)
 	}
 	else if (!ft_strcmp(split[*i], "<"))
 	{
+		cmd->last_redir = REDIR_INFILE;
 		ft_set_string(&cmd->infile, split[++(*i)]);
 		return (true);
 	}
 	return (false);
 }
 
-static bool	fill_cmd(t_cmd *cmd, char **split, size_t *i)
+static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 {
 	if (!split || !cmd)
 		return (false);
@@ -84,17 +75,17 @@ static bool	fill_cmd(t_cmd *cmd, char **split, size_t *i)
 				return (false);
 			cmd->next->prev = cmd;
 			++(*i);
-			if (!fill_cmd(cmd->next, split, i))
+			if (!fill_cmd(shell, cmd->next, split, i))
 				return (false);
 		}
 		else
 		{
+			expand_and_clean(shell, cmd, &split, *i);
 			array_push(&cmd->args, split[*i]);
 			(*i)++;
 		}
 	}
-	ft_set_string(&cmd->cmd, cmd->args[0]);
-	return (true);
+	return (ft_set_string(&cmd->cmd, cmd->args[0]));
 }
 
 static bool	fill_t_shell(t_shell *shell, char **matrix)
@@ -114,9 +105,7 @@ static bool	fill_t_shell(t_shell *shell, char **matrix)
 		(void)j;
 		if (!split_ignoring_quotes(shell, matrix[i], &args))
 			return (ft_free_split(&matrix), false);
-		if (!expand_and_clean(shell, shell->cmd_list[i], &args))
-			return (ft_free_split(&matrix), false);
-		if (!fill_cmd(shell->cmd_list[i], args, &j))
+		if (!fill_cmd(shell, shell->cmd_list[i], args, &j))
 			return (false);
 		i++;
 	}
