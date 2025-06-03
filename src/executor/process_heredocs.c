@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:04:23 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 15:07:12 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:54:31 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ bool	process_heredocs(t_shell *shell, t_cmd *cmd)
 {
 	int	pip[2];
 
-	ignore_signals();
+	// ignore_signals();
 	while (cmd)
 	{
 		if (pipe(pip) == -1)
 			return (false);
-		signal(SIGINT, heredoc_sigint_handler);
+		// signal(SIGINT, heredoc_sigint_handler);
 		if (!heredoc_child(shell, cmd, pip))
 		{
 			close(pip[0]);

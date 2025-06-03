@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:32:18 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 14:51:48 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:01:33 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	execute_simple_cmd(t_shell *shell, t_cmd *cmd)
 	if (is_builtin(cmd->cmd))
 		exit(execute_builtin(shell, cmd));
 	if (ft_execvp(cmd->cmd, cmd->args, shell->env_cpy) == -1)
+	{
+		ft_eprintf("minishell: %s: %s\n", cmd->cmd, strerror(errno));
 		exit(get_exit_code_from_errno(errno));
+	}
 }
 
 void	execute_piped_cmd(t_shell *shell, t_cmd *cmd, int **pipes, size_t idx)
@@ -92,5 +95,8 @@ void	execute_piped_cmd(t_shell *shell, t_cmd *cmd, int **pipes, size_t idx)
 	if (is_builtin(cmd->cmd))
 		exit(execute_builtin(shell, cmd));
 	if (ft_execvp(cmd->cmd, cmd->args, shell->env_cpy) == -1)
+	{
+		ft_eprintf("minishell: %s: %s\n", cmd->cmd, strerror(errno));
 		exit(get_exit_code_from_errno(errno));
+	}
 }
