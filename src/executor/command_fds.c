@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:45:18 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/06/03 15:06:42 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:53:54 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,12 @@ bool	handle_heredoc(t_shell *shell, t_cmd *cmd, int pipes[2])
 {
 	char	*line;
 
-	g_signal = 0;
 	close(pipes[0]);
 	if (!cmd || pipes[1] < 0)
 		return (false);
 	while (1)
 	{
 		line = readline("> ");
-		if (g_signal == SIGINT)
-			exit(EXIT_KO);
-			// return (sigint_heredoc(pipes, line));
 		if (!line)
 		{
 			warn_heredoc_eof(cmd);

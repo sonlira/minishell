@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 15:54:24 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:45:47 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ static void	execute_pipeline(t_shell *sh, t_cmd *cmd)
 	if (sh->pipes)
 		destroy_pipes(&sh->pipes, (sh->cmd_count - 1));
 	wait_and_free_forks(&sh->pids, sh->cmd_count, &status);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	if (WIFEXITED(status))
 		sh->last_exit = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		sh->last_exit = 128 + WTERMSIG(status);
+	setup_shell_signals();
 }
 
 void	execute_shell_command(t_shell *shell)

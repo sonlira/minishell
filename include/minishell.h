@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:39:06 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/28 23:03:29 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 21:00:21 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # include "builtin.h"
 # include "signals.h"
 
-extern volatile sig_atomic_t	g_signal;
+// extern volatile sig_atomic_t	g_signal;
 
 #endif

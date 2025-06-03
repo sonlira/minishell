@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:04:23 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 15:54:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 21:39:08 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pip[2])
 		return (false);
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_IGN);
+		setup_exec_signals();
 		if (!handle_heredoc(shell, cmd, pip))
 			exit(EXIT_KO);
 		exit(EXIT_OK);
 	}
 	else
 	{
+		ignore_child_signals();
 		waitpid(pid, &status, 0);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		{
-			write(STDOUT_FILENO, "\n", 1);
+			ft_putstr_fd("\n", STDOUT_FILENO);
 			shell->last_exit = 130;
 			return (false);
 		}
@@ -49,12 +49,10 @@ bool	process_heredocs(t_shell *shell, t_cmd *cmd)
 {
 	int	pip[2];
 
-	// ignore_signals();
 	while (cmd)
 	{
 		if (pipe(pip) == -1)
 			return (false);
-		// signal(SIGINT, heredoc_sigint_handler);
 		if (!heredoc_child(shell, cmd, pip))
 		{
 			close(pip[0]);
@@ -65,6 +63,5 @@ bool	process_heredocs(t_shell *shell, t_cmd *cmd)
 		cmd->fd.heredoc = pip[0];
 		cmd = cmd->next;
 	}
-	signal(SIGINT, handler_sigint);
 	return (true);
 }
