@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:55 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 19:49:16 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 00:05:43 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,63 @@ static bool	execute_builtin_cmd(t_shell *shell, t_cmd *cmd)
 	return (true);
 }
 
+static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pip[2])
+{
+	pid_t	pid;
+	int		status;
+
+	if (!cmd->heredoc)
+		return (true);
+	pid = fork();
+	if (pid == -1)
+		return (false);
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
+		if (!handle_heredoc(shell, cmd, pip))
+			exit(EXIT_KO);
+		exit(EXIT_OK);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			write(STDOUT_FILENO, "\n", 1);
+			shell->last_exit = 130;
+			return (false);
+		}
+		if (!WIFEXITED(status) || WEXITSTATUS(status) != EXIT_OK)
+			return (false);
+	}
+	return (true);
+}
+
+static bool	process_heredocs(t_shell *shell, t_cmd *cmd)
+{
+	int	pip[2];
+
+	ignore_signals();
+	while (cmd)
+	{
+		if (pipe(pip) == -1)
+			return (false);
+		signal(SIGINT, heredoc_sigint_handler);
+		if (!heredoc_child(shell, cmd, pip))
+		{
+			close(pip[0]);
+			close(pip[1]);
+			return (false);
+		}
+		close(pip[1]);
+		cmd->fd.heredoc = pip[0];
+		cmd = cmd->next;
+	}
+	signal(SIGINT, handler_sigint);
+	return (true);
+}
+
 static void	child_execution(t_shell *sh, t_cmd *cmd, size_t idx)
 {
 	if (sh->pipes)
@@ -45,28 +102,26 @@ static void	child_execution(t_shell *sh, t_cmd *cmd, size_t idx)
 		execute_simple_cmd(sh, cmd);
 }
 
-static void	execute_pipeline(t_shell *shell, t_cmd *cmd)
+static void	execute_pipeline(t_shell *sh, t_cmd *cmd)
 {
 	int		status;
 
-	if (execute_builtin_cmd(shell, cmd))
+	if (execute_builtin_cmd(sh, cmd))
 		return ;
-	status = 0;
-	shell->cmd_count = count_commands(cmd);
-	if (shell->cmd_count > 1)
-	{
-		if (!init_pipes(&shell->pipes, (shell->cmd_count - 1)))
-			return ;
-	}
-	if (!init_forks(shell, cmd, child_execution))
-		return (destroy_pipes(&shell->pipes, (shell->cmd_count - 1)));
-	if (shell->pipes)
-		destroy_pipes(&shell->pipes, (shell->cmd_count - 1));
-	wait_and_free_forks(&shell->pids, shell->cmd_count, &status);
+	sh->cmd_count = count_commands(cmd);
+	if (sh->cmd_count > 1 && !init_pipes(&sh->pipes, (sh->cmd_count - 1)))
+		return ;
+	if (!process_heredocs(sh, cmd))
+		return ;
+	if (!init_forks(sh, cmd, child_execution))
+		return (destroy_pipes(&sh->pipes, (sh->cmd_count - 1)));
+	if (sh->pipes)
+		destroy_pipes(&sh->pipes, (sh->cmd_count - 1));
+	wait_and_free_forks(&sh->pids, sh->cmd_count, &status);
 	if (WIFEXITED(status))
-		shell->last_exit = WEXITSTATUS(status);
+		sh->last_exit = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		shell->last_exit = 128 + WTERMSIG(status);
+		sh->last_exit = 128 + WTERMSIG(status);
 }
 
 void	execute_shell_command(t_shell *shell)

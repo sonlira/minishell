@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:15:43 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 21:40:29 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:53:57 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	init_forks(t_shell *shell, t_cmd *cmd,
 	void (*child_fn)(t_shell *, t_cmd *, size_t idx))
 {
 	size_t	i;
-	t_cmd	*tmp;
+	// t_cmd	*tmp;
 
 	if (!shell || !cmd || shell->cmd_count < 1)
 		return (false);
@@ -67,7 +67,7 @@ bool	init_forks(t_shell *shell, t_cmd *cmd,
 	i = 0;
 	while (i < shell->cmd_count && cmd)
 	{
-		tmp = cmd->next;
+		// tmp = cmd->next;
 		shell->pids[i] = fork();
 		if (shell->pids[i] == -1)
 			return (kill_forks(&shell->pids, i), false);
@@ -77,7 +77,7 @@ bool	init_forks(t_shell *shell, t_cmd *cmd,
 			exit(EXIT_OK);
 		}
 		i++;
-		cmd = tmp;
+		cmd = cmd->next;
 	}
 	return (true);
 }

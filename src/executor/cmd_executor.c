@@ -6,34 +6,27 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:32:18 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 19:48:40 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:51:48 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	setup_command_fds(t_shell *shell, t_cmd *cmd, t_cmd_fds *fd)
+static bool	setup_command_fds(t_cmd *cmd)
 {
-	init_cmd_fds(fd);
-	if (cmd->heredoc)
+	if (cmd->last_redir == REDIR_HEREDOC && cmd->fd.heredoc >= 0)
+		dup2(cmd->fd.heredoc, STDIN_FILENO);
+	if (cmd->last_redir == REDIR_INFILE)
 	{
-		if (!handle_heredoc(shell, cmd, &fd->heredoc))
+		if (!open_infile_if_needed(cmd, &cmd->fd.infile))
 			return (false);
-		if (cmd->last_redir == REDIR_HEREDOC)
-			dup2(fd->heredoc, STDIN_FILENO);
-	}
-	if (cmd->infile)
-	{
-		if (!open_infile_if_needed(cmd, &fd->infile))
-			return (false);
-		if (cmd->last_redir == REDIR_INFILE)
-			dup2(fd->infile, STDIN_FILENO);
+		dup2(cmd->fd.infile, STDIN_FILENO);
 	}
 	if (cmd->outfile)
 	{
-		if (!open_outfile_if_needed(cmd, &fd->outfile))
+		if (!open_outfile_if_needed(cmd, &cmd->fd.outfile))
 			return (false);
-		dup2(fd->outfile, STDOUT_FILENO);
+		dup2(cmd->fd.outfile, STDOUT_FILENO);
 	}
 	return (true);
 }
@@ -74,40 +67,30 @@ static int	get_exit_code_from_errno(int errnum)
 
 void	execute_simple_cmd(t_shell *shell, t_cmd *cmd)
 {
-	t_cmd_fds	fd;
-
 	if (!shell || !cmd)
 		return ;
-	if (!setup_command_fds(shell, cmd, &fd))
+	if (!setup_command_fds(cmd))
 		exit(EXIT_KO);
-	close_command_fds(shell, fd, 0);
+	close_command_fds(shell, cmd->fd, 0);
 	if (is_builtin(cmd->cmd))
 		exit(execute_builtin(shell, cmd));
 	if (ft_execvp(cmd->cmd, cmd->args, shell->env_cpy) == -1)
-	{
-		ft_eprintf("minishell: %s: %s\n", cmd->cmd, strerror(errno));
 		exit(get_exit_code_from_errno(errno));
-	}
 }
 
 void	execute_piped_cmd(t_shell *shell, t_cmd *cmd, int **pipes, size_t idx)
 {
-	t_cmd_fds	fd;
-
 	if (!shell || !cmd || !pipes)
 		return ;
-	if (!setup_command_fds(shell, cmd, &fd))
+	if (!setup_command_fds(cmd))
 		exit(EXIT_KO);
 	if (cmd->last_redir == REDIR_NONE && cmd->prev)
 		dup2(pipes[idx - 1][0], STDIN_FILENO);
 	if (!cmd->outfile && cmd->next)
 		dup2(pipes[idx][1], STDOUT_FILENO);
-	close_command_fds(shell, fd, idx);
+	close_command_fds(shell, cmd->fd, idx);
 	if (is_builtin(cmd->cmd))
 		exit(execute_builtin(shell, cmd));
 	if (ft_execvp(cmd->cmd, cmd->args, shell->env_cpy) == -1)
-	{
-		ft_eprintf("minishell: %s: %s\n", cmd->cmd, strerror(errno));
 		exit(get_exit_code_from_errno(errno));
-	}
 }

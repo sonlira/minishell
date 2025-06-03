@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:02:42 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 21:08:14 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:53:28 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	get_path_dirs(char *const *envp, char ***array)
 	char	*path;
 
 	path = get_env_value((char **)envp, "PATH");
-	if (!path)
+	if (!path || !*path)
 		return (false);
 	*array = ft_split(path, ':');
 	if (!*array)
@@ -36,7 +36,11 @@ int	ft_execvp(const char *cmd, char *const *args, char *const *envp)
 	if (ft_strchr(cmd, '/'))
 		execve(cmd, args, envp);
 	if (!get_path_dirs(envp, &dir))
-		return (errno = ENOENT, ERROR);
+	{
+		errno = ENOENT;
+		ft_eprintf("minishell: %s: %s\n", cmd, strerror(errno));
+		return (ERROR);
+	}
 	while (dir[i])
 	{
 		ft_snprintf(full_path, sizeof(full_path), "%s/%s", dir[i], cmd);
@@ -45,5 +49,6 @@ int	ft_execvp(const char *cmd, char *const *args, char *const *envp)
 		i++;
 	}
 	errno = ENOENT;
+	ft_eprintf("minishell: %s: command not found\n", cmd);
 	return (ft_free_split(&dir), ERROR);
 }

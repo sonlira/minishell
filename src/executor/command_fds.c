@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:45:18 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/05/29 12:22:58 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:06:42 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,20 @@ static void	write_heredoc_line(t_cmd *cmd, t_shell *sh, int pips[2], char *line)
 	free(line);
 }
 
-bool	handle_heredoc(t_shell *shell, t_cmd *cmd, int *fd_read)
+bool	handle_heredoc(t_shell *shell, t_cmd *cmd, int pipes[2])
 {
-	int		pipes[2];
 	char	*line;
 
-	if (!cmd || !fd_read)
-		return (false);
-	if (pipe(pipes) == -1)
+	g_signal = 0;
+	close(pipes[0]);
+	if (!cmd || pipes[1] < 0)
 		return (false);
 	while (1)
 	{
-		setup_signals();
 		line = readline("> ");
 		if (g_signal == SIGINT)
-			return (sigint_heredoc(pipes, line));
+			exit(EXIT_KO);
+			// return (sigint_heredoc(pipes, line));
 		if (!line)
 		{
 			warn_heredoc_eof(cmd);
@@ -57,8 +56,6 @@ bool	handle_heredoc(t_shell *shell, t_cmd *cmd, int *fd_read)
 			break ;
 		write_heredoc_line(cmd, shell, pipes, line);
 	}
-	close(pipes[1]);
-	*fd_read = pipes[0];
 	return (free(line), true);
 }
 
