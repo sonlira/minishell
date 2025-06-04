@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 22:20:29 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/03 23:24:37 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handler_sigint(int sig)
 	// g_signal = 1;
 	// printf("\n"); Estas cuatro líneas creo que hacen lo mismo que la anterior
 	ft_putstr_fd("\n", STDOUT_FILENO); //hacemos salto de linea para no tener minishell>^C minishell> en una sola linea
-	rl_replace_line("", 0); // 1 Borra la linea sin guardar 0 guarda la linea (ejm. cat^C) <- con 0 se guarda en fichero para recuperar eso. Pero yo no lo quiero por eso uso 1. 
+	rl_replace_line("", 1); // 1 Borra la linea sin guardar 0 guarda la linea (ejm. cat^C) <- con 0 se guarda en fichero para recuperar eso. Pero yo no lo quiero por eso uso 1. 
 	rl_on_new_line(); // Nos movemos a la nueva linea
 	rl_redisplay(); // vuelve a mostrar el prompt (minishell >)
 }

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/02 23:45:55 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:57:11 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,55 @@
  60 = <
  62 = >
 */
-static void	expand_and_clean(t_shell *sh, t_cmd *cmd, char ***args, size_t idx)
+static void	expand_and_prepare(t_shell *sh, t_cmd *cmd, char **split, size_t *i)
 {
-	expander_dollar_args(sh, &(*args)[idx], true);
-	if (!ft_strcmp((*args)[idx], "<<"))
+	size_t	size;
+
+	if (!ft_strcmp(split[*i], "<<"))
 	{
-		if (ft_is_rawchar((*args)[idx + 1], 34))
-			cmd->is_quoted = true;
-		else if (ft_is_rawchar((*args)[idx + 1], 39))
-			cmd->is_quoted = true;
+		expander_dollar_args(sh, &split[++(*i)], true);
+		size = ft_count_elements((const char **)cmd->delimiter);
+		if (ft_is_rawchar(split[*i], 34) || ft_is_rawchar(split[*i], 39))
+			bool_array_push(&cmd->is_quoted, true, size);
+		else
+			bool_array_push(&cmd->is_quoted, false, size);
+		remove_quotes_and_backslashes(sh, &split[*i]);
+		array_push(&cmd->delimiter, split[*i]);
 	}
-	remove_quotes_and_backslashes(sh, &(*args)[idx]);
+	else if (!ft_strcmp(split[*i], ">>") || !ft_strcmp(split[*i], ">"))
+	{
+		expander_dollar_args(sh, &split[++(*i)], true);
+		remove_quotes_and_backslashes(sh, &split[*i]);
+		array_unshift(&cmd->outfile, split[*i]);
+	}
+	else if (!ft_strcmp(split[*i], "<"))
+	{
+		expander_dollar_args(sh, &split[++(*i)], true);
+		remove_quotes_and_backslashes(sh, &split[*i]);
+		ft_set_string(&cmd->infile, split[*i]);
+	}
 }
 
-static bool	check_redirection(t_cmd *cmd, char **split, size_t *i)
+static bool	check_redirection(t_shell *sh, t_cmd *cmd, char **split, size_t *i)
 {
 	if (!ft_strcmp(split[*i], "<<"))
 	{
 		cmd->last_redir = REDIR_HEREDOC;
 		cmd->heredoc = true;
-		ft_set_string(&cmd->delimiter, split[++(*i)]);
+		expand_and_prepare(sh, cmd, split, i);
 		return (true);
 	}
 	else if (!ft_strcmp(split[*i], ">>") || !ft_strcmp(split[*i], ">"))
 	{
 		if (!ft_strcmp(split[*i], ">>"))
 			cmd->append = true;
-		array_unshift(&cmd->outfile, split[++(*i)]);
+		expand_and_prepare(sh, cmd, split, i);
 		return (true);
 	}
 	else if (!ft_strcmp(split[*i], "<"))
 	{
 		cmd->last_redir = REDIR_INFILE;
-		ft_set_string(&cmd->infile, split[++(*i)]);
+		expand_and_prepare(sh, cmd, split, i);
 		return (true);
 	}
 	return (false);
@@ -61,11 +77,9 @@ static bool	check_redirection(t_cmd *cmd, char **split, size_t *i)
 
 static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 {
-	if (!split || !cmd)
-		return (false);
 	while (split[*i])
 	{
-		if (check_redirection(cmd, split, i))
+		if (check_redirection(shell, cmd, split, i))
 			(*i)++;
 		else if (!ft_strcmp(split[*i], "|"))
 		{
@@ -80,7 +94,8 @@ static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 		}
 		else
 		{
-			expand_and_clean(shell, cmd, &split, *i);
+			expander_dollar_args(shell, &split[*i], true);
+			remove_quotes_and_backslashes(shell, &split[*i]);
 			array_push(&cmd->args, split[*i]);
 			(*i)++;
 		}
@@ -94,8 +109,6 @@ static bool	fill_t_shell(t_shell *shell, char **matrix)
 	size_t	i;
 	size_t	j;
 
-	if (!shell || !matrix)
-		return (false);
 	if (!create_cmd_list(shell, ft_count_elements((const char **)matrix)))
 		return (false);
 	i = 0;

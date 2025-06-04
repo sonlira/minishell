@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 19:02:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 19:33:54 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:42:55 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,24 @@ bool	dup_str_array_into(char ***dst, char **orig)
 			return (ft_free_split(dst), false);
 		i++;
 	}
+	return (true);
+}
+
+bool	bool_array_push(bool **array, const bool value, size_t size)
+{
+	t_iterator	it;
+	bool		*new_array;
+
+	if (!array)
+		return (false);
+	new_array = ft_calloc((size + 1), sizeof(bool));
+	if (!new_array)
+		return (false);
+	init_iterator(&it);
+	while (it.i < size)
+		new_array[it.j++] = (*array)[it.i++];
+	new_array[it.j] = value;
+	free(*array);
+	*array = new_array;
 	return (true);
 }

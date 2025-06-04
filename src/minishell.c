@@ -6,15 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 20:57:47 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:08:38 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// volatile sig_atomic_t g_signal = 0;
-
-int	main(int argc, char **argv, char **envp) // falta implementar señales
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_shell	shell;

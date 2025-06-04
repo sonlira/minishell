@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:00:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/02 18:30:08 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:31:09 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_cmd
 	char			**outfile; // Redirección de salida (ej: "> output.txt")
 	bool			append; // 1 si es >>, 0 si es >
 	bool			heredoc; // 1 si el token es '<<' (heredoc), 0 si no
-	char			*delimiter; // delimitador del heredoc (ej: "EOF")
-	bool			is_quoted;//1 si el delimitador está entre comillas, 0 si no
+	char			**delimiter; // delimitadores del heredoc (ej: "EOF")
+	bool			*is_quoted;//1 si el delimitador está entre comillas, 0
 	t_redir			last_redir;//guarda el último tipo de redirección de entrada
 	t_cmd_fds		fd;//Estructura que almacena los FDs 
 	struct s_cmd	*next; // Apunta al siguiente comando (en caso de pipes)
