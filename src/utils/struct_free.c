@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 14:08:53 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/04 21:08:29 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:32:04 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	free_cmd(t_cmd *cmd)
 	if (cmd->outfile)
 		ft_free_split(&cmd->outfile);
 	if (cmd->infile)
-		free(cmd->infile);
+		ft_free_split(&cmd->infile);
 	if (cmd->delimiter)
 		ft_free_split(&cmd->delimiter);
 	if (cmd->is_quoted)

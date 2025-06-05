@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:00:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/04 20:31:09 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:30:48 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_cmd
 {
 	char			*cmd; // Nombre del comando (ej: "ls")
 	char			**args; //  Argumentos del comando (ej: {"ls", "-l", NULL})
-	char			*infile; // Redirección de entrada (ej: "< input.txt")
+	char			**infile; // Redirección de entrada (ej: "< input.txt")
 	char			**outfile; // Redirección de salida (ej: "> output.txt")
 	bool			append; // 1 si es >>, 0 si es >
 	bool			heredoc; // 1 si el token es '<<' (heredoc), 0 si no

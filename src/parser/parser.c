@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/04 20:57:11 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:31:31 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	expand_and_prepare(t_shell *sh, t_cmd *cmd, char **split, size_t *i)
 	{
 		expander_dollar_args(sh, &split[++(*i)], true);
 		remove_quotes_and_backslashes(sh, &split[*i]);
-		ft_set_string(&cmd->infile, split[*i]);
+		array_push(&cmd->infile, split[*i]);
 	}
 }
 

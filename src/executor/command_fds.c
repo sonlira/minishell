@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:45:18 by bgil-fer          #+#    #+#             */
-/*   Updated: 2025/06/04 20:28:34 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:38:36 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,22 @@ bool	handle_heredoc(t_shell *shell, t_cmd *cmd, int pipes[2])
 
 bool	open_infile_if_needed(t_cmd *cmd, int *fd)
 {
+	size_t	i;
+
 	if (!cmd || !fd)
 		return (false);
-	*fd = open(cmd->infile, O_RDONLY);
-	if (*fd < 0)
+	i = 0;
+	while (cmd->infile[i])
 	{
-		ft_eprintf("minishell: %s: %s\n", cmd->infile, strerror(errno));
-		return (false);
+		if (*fd >= 0)
+			close(*fd);
+		*fd = open(cmd->infile[i], O_RDONLY);
+		if (*fd < 0)
+		{
+			ft_eprintf("minishell: %s: %s\n", cmd->infile[i], strerror(errno));
+			return (false);
+		}
+		i++;
 	}
 	return (true);
 }
