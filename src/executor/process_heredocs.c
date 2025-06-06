@@ -6,13 +6,13 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 00:04:23 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 23:06:32 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:44:39 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pip[2])
+static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pipes[2])
 {
 	pid_t	pid;
 	int		status;
@@ -25,7 +25,7 @@ static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pip[2])
 	if (pid == 0)
 	{
 		setup_exec_signals();
-		if (!handle_heredoc(shell, cmd, pip))
+		if (!handle_heredoc(shell, cmd, pipes))
 			exit(EXIT_KO);
 		exit(EXIT_OK);
 	}
@@ -34,7 +34,7 @@ static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pip[2])
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		return (setup_shell_signals(), shell->last_exit = 130, false);
+		return (shell->last_exit = 130, false);
 	}
 	if (!WIFEXITED(status) || WEXITSTATUS(status) != EXIT_OK)
 		return (false);
@@ -43,20 +43,20 @@ static bool	heredoc_child(t_shell *shell, t_cmd *cmd, int pip[2])
 
 bool	process_heredocs(t_shell *shell, t_cmd *cmd)
 {
-	int	pip[2];
+	int	heredoc_pipes[2];
 
 	while (cmd)
 	{
-		if (pipe(pip) == -1)
+		if (pipe(heredoc_pipes) == -1)
 			return (false);
-		if (!heredoc_child(shell, cmd, pip))
+		if (!heredoc_child(shell, cmd, heredoc_pipes))
 		{
-			close(pip[0]);
-			close(pip[1]);
+			close(heredoc_pipes[0]);
+			close(heredoc_pipes[1]);
 			return (false);
 		}
-		close(pip[1]);
-		cmd->fd.heredoc = pip[0];
+		close(heredoc_pipes[1]);
+		cmd->fd.heredoc = heredoc_pipes[0];
 		cmd = cmd->next;
 	}
 	return (true);

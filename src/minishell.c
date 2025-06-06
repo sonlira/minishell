@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/04 21:08:38 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:41:19 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (!init_shell_struct(&shell, envp))
 		return (EXIT_FAILURE);
-	setup_shell_signals();
 	while (shell.running)
 	{
+		setup_shell_signals();
 		line = readline("minishell> ");
 		if (!line)
 			handler_eof(&shell, line);

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:15:43 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/03 20:45:55 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:53:53 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static void	wait_forks(pid_t **pids, size_t size, int *status)
 	i = 0;
 	while (i < size)
 	{
+		ignore_child_signals();
 		waitpid((*pids)[i], status, 0);
+		if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
+			ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 }
@@ -75,7 +78,6 @@ bool	init_forks(t_shell *shell, t_cmd *cmd,
 			child_fn(shell, cmd, i);
 			exit(EXIT_OK);
 		}
-		ignore_child_signals();
 		i++;
 		cmd = cmd->next;
 	}
