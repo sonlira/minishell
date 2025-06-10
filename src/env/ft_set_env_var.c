@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 12:48:59 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 16:08:38 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/10 11:19:27 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*format(const char *name, const char *value) //Dar formato tipo NOMBRE_VARIABLE=value
+static char	*format(const char *name, const char *var_name)
 {
 	char	*f_name;
 	char	*result;
 
 	f_name = ft_strjoin(name, "=");
-	result = ft_strjoin(f_name, value);
+	result = ft_strjoin(f_name, var_name);
 	if (!result)
 		return (f_name);
 	free(f_name);

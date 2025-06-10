@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/06 21:57:30 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/10 11:28:19 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	handler_sigint(int sig)
 
 void	setup_shell_signals(void)
 {
-	struct sigaction sa; //estructura para poder trabajar con sigaction
+	struct sigaction	sa; //estructura para poder trabajar con sigaction
 
 	ft_bzero(&sa, sizeof(sa)); // Iniciamos los campos de sa a 0
 	sa.sa_handler = handler_sigint; // funcion que se usara cuando se produzca la señal (SIGINT)
