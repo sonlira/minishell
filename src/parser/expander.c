@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:48:41 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 22:40:01 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:53:41 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	expander_dquote(char *s, char *d, t_iterator *it, t_shell *shell)
 			d[it->j++] = str[i++];
 		free(str);
 		it->i = end;
+		d[it->j++] = s[it->i++];
 	}
 	else
 	{
@@ -104,13 +105,15 @@ bool	expander_dollar_args(t_shell *shell, char **s, bool quote)
 	init_iterator(&it);
 	while ((*s)[it.i])
 	{
-		if (quote == true && ((*s)[it.i] == 34 || (*s)[it.i] == 39))
+		if (quote && ((*s)[it.i] == 34 || (*s)[it.i] == 39))
 			is_quoted_expand(*s, dst, &it, shell);
 		else if ((*s)[it.i] == 92 && (*s)[it.i + 1])
 		{
 			dst[it.j++] = (*s)[it.i++];
 			dst[it.j++] = (*s)[it.i++];
 		}
+		else if (!quote && (*s)[it.i] == '$' && !ft_isalnum((*s)[it.i + 1]))
+			dst[it.j++] = (*s)[it.i++];
 		else if ((*s)[it.i] == '$' && (*s)[it.i + 1] && (*s)[it.i + 1] != '$')
 			expander_dollar(*s, dst, &it, shell);
 		else

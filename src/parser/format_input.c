@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/19 19:46:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:25:03 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 	{
 		while (s[i] && !is_operator(s[i]))
 		{
-			if ((s[i] == 34 || s[i] == 39) && (s[i - 1] || i == 0))
+			if (s[i] == '$' && s[i + 1] && (s[i + 1] == 34 || s[i + 1] == 39))
+				i++;
+			else if ((s[i] == 34 || s[i] == 39) && (s[i - 1] || i == 0))
 				copy_quoted_content(s, dst, &i, &j);
 			else
 				dst[j++] = s[i++];
