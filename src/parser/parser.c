@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/05 14:31:31 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/12 20:36:12 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	expand_and_prepare(t_shell *sh, t_cmd *cmd, char **split, size_t *i)
 
 	if (!ft_strcmp(split[*i], "<<"))
 	{
-		expander_dollar_args(sh, &split[++(*i)], true);
+		// expander_dollar_args(sh, &split[++(*i)], true); No hace falta expadir $VAR en delimitadores
+		(*i)++;
 		size = ft_count_elements((const char **)cmd->delimiter);
 		if (ft_is_rawchar(split[*i], 34) || ft_is_rawchar(split[*i], 39))
 			bool_array_push(&cmd->is_quoted, true, size);
