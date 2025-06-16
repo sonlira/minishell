@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/06 21:41:19 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:50:07 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell> ");
 		if (!line)
 			handler_eof(&shell, line);
-		add_history(line);
-		if (parse_input(&shell, line))
+		if (line[0])
+			add_history(line);
+		if (line[0] && parse_input(&shell, line))
 			execute_shell_command(&shell);
 		free(line);
 		free_cmd_list(&shell);

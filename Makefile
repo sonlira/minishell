@@ -6,13 +6,13 @@
 #    By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 17:35:09 by abaldelo          #+#    #+#              #
-#    Updated: 2025/06/05 17:03:36 by abaldelo         ###   ########.fr        #
+#    Updated: 2025/06/16 22:48:57 by abaldelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -Iinclude -g
+CFLAGS		= -Wall -Wextra -Werror -Iinclude #-g
 
 # Directorios
 INC_DIR		= include
@@ -31,7 +31,7 @@ UTILS_DIR	= $(SRC_DIR)/utils
 BUILTIN		= dispatcher ft_cd ft_echo ft_env ft_exit ft_export ft_pwd ft_unset
 ENV			= ft_copy_env ft_free_env ft_get_env_value ft_print_env ft_print_sorted_env ft_set_env_var ft_unset_env_var
 EXECUTOR	= cmd_executor command_fds executor execvp forks pipes process_heredocs
-PARSER		= expander format_input parser rm_quotes_and_bslash split_ignoring_quotes split_valid_semicolons
+PARSER		= expander format_input parser rm_quotes_and_bslash split_ignoring_quotes split_valid_semicolons command_check
 VALIDATORS	= delimiters quotes redirection
 SIGNALS		= signals
 UTILS		= array_utils matrix_utils struct_free struct_init

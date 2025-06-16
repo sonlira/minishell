@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/12 20:36:12 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/16 22:23:35 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 			(*i)++;
 		}
 	}
-	return (ft_set_string(&cmd->cmd, cmd->args[0]));
+	return (validate_and_parse_cmd(cmd));
 }
 
 static bool	fill_t_shell(t_shell *shell, char **matrix)

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/12 19:25:03 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:44:57 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ bool	has_non_whitespace(const char *s)
 	i = 0;
 	while (s[i] == 32)
 		i++;
+	if (s[i] && s[i] == 34 && s[i + 1] && s[i + 1] == 34)
+		return (false);
+	else if (s[i] && s[i] == 39 && s[i + 1] && s[i + 1] == 39)
+		return (false);
 	if (!s[i])
 		return (false);
 	return (true);
