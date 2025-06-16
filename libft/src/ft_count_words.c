@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_fd.c                                     :+:      :+:    :+:   */
+/*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 14:23:42 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 21:16:12 by abaldelo         ###   ########.fr       */
+/*   Created: 2025/06/16 20:10:10 by abaldelo          #+#    #+#             */
+/*   Updated: 2025/06/16 20:40:16 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_printf_fd(int fd, char const *str, ...)
+static	size_t	length_word(char const *s, char c)
 {
-	int		len;
-	va_list	args;
+	size_t	size;
 
-	va_start(args, str);
-	len = ft_print_valist_fd(fd, str, args);
-	va_end(args);
-	return (len);
+	size = 0;
+	while (s[size] && s[size] != c)
+		size++;
+	return (size);
+}
+
+size_t	ft_count_words(char const *s, char c)
+{
+	size_t	count;
+
+	count = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			count++;
+			s += length_word(s, c);
+		}
+		else
+			s++;
+	}
+	return (count);
 }

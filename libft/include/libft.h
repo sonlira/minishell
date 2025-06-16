@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:56:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/27 11:23:46 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:16:13 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void		ft_putptr_sn(t_fmtbuf *fmt, void *ptr);
 void		ft_puthex_sn(t_fmtbuf *fmt, unsigned long long num, char base);
 void		ft_putchar_sn(t_fmtbuf *fmt, int c);
 void		ft_putstr_sn(t_fmtbuf *fmt, char *str);
+size_t		ft_count_words(char const *s, char c);
 
 #endif
