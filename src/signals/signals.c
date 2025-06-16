@@ -6,7 +6,7 @@
 /*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/10 11:28:19 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:21:48 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	setup_shell_signals(void)
 void	setup_exec_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	ignore_child_signals(void)

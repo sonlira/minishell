@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:29:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 17:05:29 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:17:50 by bgil-fer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int	go_path(char **args, char ***env)
 int	ft_cd(char **args, char ***env)
 {
 	int	count;
+	char	dst[BUFF_SIZE];
+	char	*var;
 
 	count = ft_count_elements((const char **)args);
 	if (count == 1)
@@ -78,6 +80,12 @@ int	ft_cd(char **args, char ***env)
 	{
 		if (!ft_strcmp(args[1], "-")) // Si -, vuelve a la ruta anterior
 			return (go_to_env_path(env, "OLDPWD"));
+		if (args[1][0] == '~')
+		{
+			var = get_env_value(*env, "HOME");
+			ft_snprintf(dst, sizeof(dst), "%s%s", var, args[1] + 1);
+			ft_set_string(&args[1], dst);
+		}
 		return (go_path(args, env));
 	}
 	ft_eprintf("minishell: cd:  too many arguments\n");
