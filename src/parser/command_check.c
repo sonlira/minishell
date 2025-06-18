@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:55:46 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 22:39:15 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 22:01:59 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static bool	parse_cmd_value(t_cmd *cmd)
 	}
 	ft_free_split(&cmd->args);
 	cmd->args = new_args;
-	ft_print_str_array(cmd->args);
 	return (ft_set_string(&cmd->cmd, cmd->args[0]));
 }
 
@@ -57,7 +56,7 @@ bool	validate_and_parse_cmd(t_cmd *cmd)
 	if (!cmd)
 		return (false);
 	if (is_command_empty(cmd))
-		return (true);
+		return (ft_set_string(&cmd->cmd, cmd->args[0]));
 	if (!ft_set_string(&cmd->cmd, cmd->args[0]))
 		return (false);
 	if (parse_cmd_value(cmd))
@@ -65,4 +64,19 @@ bool	validate_and_parse_cmd(t_cmd *cmd)
 	return (true);
 }
 
+bool	has_non_whitespace(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] == 32)
+		i++;
+	if (s[i] && s[i] == 34 && s[i + 1] && s[i + 1] == 34)
+		return (false);
+	else if (s[i] && s[i] == 39 && s[i + 1] && s[i + 1] == 39)
+		return (false);
+	if (!s[i])
+		return (false);
+	return (true);
+}
 //void	unquote_and_expand(t_shell *shell, t_cmd *cmd, char *str)

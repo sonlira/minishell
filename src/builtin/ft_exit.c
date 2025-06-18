@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:47:23 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 19:47:50 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:49:35 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_exit(t_shell *shell, t_cmd *cmd)
 
 	count = ft_count_elements((const char **)cmd->args);
 	printf("exit\n");
-	if (count == 1 || (count == 2 && ft_strcmp(cmd->args[1], "0") == 0))
+	if (count == 1 || (count == 2 && !ft_strcmp(cmd->args[1], "0")))
 	{
 		free_struct(shell);
 		exit(EXIT_OK);
@@ -33,7 +33,7 @@ int	ft_exit(t_shell *shell, t_cmd *cmd)
 			free_struct(shell);
 			exit(INVALID);
 		}
-		exit_code = (int)(ft_atoll(cmd->args[1]) % LIMITER);
+		exit_code = (ft_atoll(cmd->args[1]) % LIMITER);
 		free_struct(shell);
 		exit(exit_code);
 	}

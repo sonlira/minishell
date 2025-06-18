@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:03:03 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 15:02:57 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:37:34 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef enum e_status
 {
 	LIMITER	= 256,
+	MAX_SHLVL = 1000,
 	ERROR	= -1,
 	EXIT_OK	= 0,
 	EXIT_KO	= 1, //1 (EXIT_KO) Falla general de ejecución

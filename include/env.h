@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 14:51:34 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:45:15 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ bool	set_env_var(char ***env, const char *name, const char *value);
 bool	unset_env_var(char ***env, const char *name);
 void	print_env(char **env);
 void	print_sorted_env(char **env);
+void	validate_and_update_shlvl(char ***env);
 
 #endif

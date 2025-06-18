@@ -6,7 +6,7 @@
 #    By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 17:35:09 by abaldelo          #+#    #+#              #
-#    Updated: 2025/06/16 22:48:57 by abaldelo         ###   ########.fr        #
+#    Updated: 2025/06/18 22:05:34 by abaldelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ UTILS_DIR	= $(SRC_DIR)/utils
 
 # Contenedio de cada directorio sin su extencion
 BUILTIN		= dispatcher ft_cd ft_echo ft_env ft_exit ft_export ft_pwd ft_unset
-ENV			= ft_copy_env ft_free_env ft_get_env_value ft_print_env ft_print_sorted_env ft_set_env_var ft_unset_env_var
+ENV			= ft_copy_env ft_free_env ft_get_env_value ft_print_env ft_print_sorted_env ft_set_env_var ft_unset_env_var ft_env_shlvl
 EXECUTOR	= cmd_executor command_fds executor execvp forks pipes process_heredocs
 PARSER		= expander format_input parser rm_quotes_and_bslash split_ignoring_quotes split_valid_semicolons command_check
 VALIDATORS	= delimiters quotes redirection

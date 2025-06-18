@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 17:44:57 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 21:45:05 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 static void	copy_quoted_content(const char *s, char *d, size_t *i, size_t *j)
 {
 	size_t	end;
+	bool	skip_quoted;
 
 	end = *i;
+	skip_quoted = false;
 	ft_find_rawchar(s, s[*i], &end);
-	if (*i + 1 == end)
+	if (*i + 1 == end && s[*i - 1] && ft_isspace(s[*i - 1]))
+		skip_quoted = true;
+	else if (*i + 1 == end && s[end + 1] && ft_isspace(s[end + 1]))
+		skip_quoted = true;
+	if (skip_quoted)
 	{
 		*i = end + 1;
 		return ;
@@ -53,6 +59,20 @@ static void	space_operators(const char *s, char *dst, size_t *i, size_t *j)
 	}
 }
 
+static void	copy_quote_spaces(const char *s, char *d, size_t *i, size_t *j)
+{
+	if (ft_isspace(s[*i]) && s[*i - 1] && (s[*i - 1] == 34 || s[*i - 1] == 39))
+	{
+		d[(*j)++] = 32;
+		d[(*j)++] = 39;
+		while (ft_isspace(s[*i]))
+			d[(*j)++] = s[(*i)++];
+		d[(*j)++] = 39;
+	}
+	else
+		d[(*j)++] = s[(*i)++];
+}
+
 bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 {
 	size_t	i;
@@ -72,7 +92,7 @@ bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 			else if ((s[i] == 34 || s[i] == 39) && (s[i - 1] || i == 0))
 				copy_quoted_content(s, dst, &i, &j);
 			else
-				dst[j++] = s[i++];
+				copy_quote_spaces(s, dst, &i, &j);
 			if (is_operator(s[i]) && s[i - 1] == 92)
 				dst[j++] = s[i++];
 		}
@@ -82,18 +102,3 @@ bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 	return (ft_set_string(dest, dst));
 }
 
-bool	has_non_whitespace(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] == 32)
-		i++;
-	if (s[i] && s[i] == 34 && s[i + 1] && s[i + 1] == 34)
-		return (false);
-	else if (s[i] && s[i] == 39 && s[i + 1] && s[i + 1] == 39)
-		return (false);
-	if (!s[i])
-		return (false);
-	return (true);
-}
