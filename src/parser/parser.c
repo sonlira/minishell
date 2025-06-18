@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 22:23:35 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:57:15 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 			expander_dollar_args(shell, &split[*i], true);
 			remove_quotes_and_backslashes(shell, &split[*i]);
 			array_push(&cmd->args, split[*i]);
+			ft_set_string(&shell->last_arg, split[*i]);
 			(*i)++;
 		}
 	}
@@ -152,5 +153,6 @@ bool	parse_input(t_shell *shell, const char *input)
 	}
 	free(input_format);
 	ft_free_split(&matrix);
+	set_env_var(&shell->env_cpy, "_", shell->last_arg);
 	return (true);
 }

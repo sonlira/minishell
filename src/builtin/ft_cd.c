@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:29:30 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 12:17:50 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:34:23 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	ft_cd(char **args, char ***env)
 		{
 			var = get_env_value(*env, "HOME");
 			ft_snprintf(dst, sizeof(dst), "%s%s", var, args[1] + 1);
+			free(var);
 			ft_set_string(&args[1], dst);
 		}
 		return (go_path(args, env));

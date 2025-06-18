@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:52:00 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 12:21:48 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:24:02 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	handler_eof(t_shell *shell, char *line)
 void	handler_sigint(int sig)
 {
 	(void)sig;
+	if (!g_status)
+		g_status = 130;
 	ft_putstr_fd("\n", STDOUT_FILENO); //hacemos salto de linea para no tener minishell>^C minishell> en una sola linea
 	rl_replace_line("", 1); // 1 Borra la linea sin guardar 0 guarda la linea (ejm. cat^C) <- con 0 se guarda en fichero para recuperar eso. Pero yo no lo quiero por eso uso 1. 
 	rl_on_new_line(); // Nos movemos a la nueva linea

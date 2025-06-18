@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 14:08:53 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/05 14:32:04 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:56:16 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	free_struct(t_shell *shell)
 		return ;
 	if (shell->env_cpy)
 		ft_free_split(&shell->env_cpy);
+	if (shell->last_arg)
+		free(shell->last_arg);
 	if (shell->cmd_list)
 		free_cmd_list(shell);
 	if (shell->pids)

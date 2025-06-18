@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:00:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/05 14:30:48 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:52:55 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_shell
 {
 	char	**env_cpy; // Copia modificable de las variables de entorno
 	int		last_exit; // Último código de salida ($?)
+	char	*last_arg; // Último comando ejcutado
 	bool	running; // Flag para saber si la shell debe seguir ejecutándose
 	t_cmd	**cmd_list; // Lista enlazada de comandos parseados
 	size_t	cmd_count;// número total de comandos conectados por pipes
