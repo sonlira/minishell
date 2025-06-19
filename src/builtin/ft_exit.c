@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:47:23 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/18 20:49:35 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:11:04 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_exit(t_shell *shell, t_cmd *cmd)
 	}
 	else if (count == 2)
 	{
-		if (!ft_atoll(cmd->args[1]))
+		if (ft_atoll(cmd->args[1]) == 0)
 		{
 			ft_eprintf("minishell: exit: %s ", cmd->args[1]);
 			ft_eprintf(": numeric argument required\n");
