@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/19 13:13:56 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:09:39 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 			(*i)++;
 		else if (!ft_strcmp(split[*i], "|"))
 		{
-			ft_set_string(&cmd->cmd, cmd->args[0]);
+			validate_and_parse_cmd(cmd);
 			cmd->next = create_cmd_struct();
 			if (!cmd->next)
 				return (false);
