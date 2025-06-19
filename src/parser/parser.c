@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/18 21:28:04 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:13:56 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ static bool	fill_t_shell(t_shell *shell, char **matrix)
 		(void)j;
 		if (!split_ignoring_quotes(shell, matrix[i], &args))
 			return (ft_free_split(&matrix), false);
+		// ft_print_str_array(args); // imprimir argumentos
 		if (!fill_cmd(shell, shell->cmd_list[i], args, &j))
 			return (false);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/18 21:45:05 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:13:27 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,19 @@ static void	space_operators(const char *s, char *dst, size_t *i, size_t *j)
 
 static void	copy_quote_spaces(const char *s, char *d, size_t *i, size_t *j)
 {
-	if (ft_isspace(s[*i]) && s[*i - 1] && (s[*i - 1] == 34 || s[*i - 1] == 39))
+	bool	should_quote_space;
+
+	should_quote_space = false;
+	if (s[*i - 1] && s[*i - 2] && s[*i - 1] == 34 && s[*i - 2] == 34)
+		should_quote_space = true;
+	else if (s[*i - 1] && s[*i - 2] && s[*i - 1] == 39 && s[*i - 2] == 39)
+		should_quote_space = true;
+	if (ft_isspace(s[*i]) && should_quote_space)
 	{
-		d[(*j)++] = 32;
-		d[(*j)++] = 39;
-		while (ft_isspace(s[*i]))
-			d[(*j)++] = s[(*i)++];
-		d[(*j)++] = 39;
+		d[(*j)++] = 32; // poner espacio
+		d[(*j)++] = 39; // abrir comilla simple "'"
+		d[(*j)++] = s[(*i)++]; // guardar el espacio
+		d[(*j)++] = 39; // cerrar comilla simple "'". Espacio protegido, oh yeah!
 	}
 	else
 		d[(*j)++] = s[(*i)++];
@@ -101,4 +107,3 @@ bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 	dst[j] = 0;
 	return (ft_set_string(dest, dst));
 }
-
