@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:48:41 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/20 17:53:49 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:46:28 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	is_quoted_expand(char *s, char *d, t_iterator *it, t_shell *shell)
 
 	if (s[it->i] == 34 && (it->i >= 0))
 		expander_dquote(s, d, it, shell);
-	else if (s[it->i] == 39 && (s[it->i - 1] || it->i == 0))
+	else if (s[it->i] == 39 && (it->i >= 0))
 	{
 		end = it->i;
 		ft_find_rawchar(s, s[it->i], &end);
