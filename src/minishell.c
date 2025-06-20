@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:42:21 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/18 21:48:50 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:14:06 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ int	main(int argc, char **argv, char **envp)
 		free_cmd_list(&shell);
 		g_status = 0;
 	}
-	free_struct(&shell);
 	return (EXIT_SUCCESS);
 }

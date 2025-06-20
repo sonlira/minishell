@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/19 13:13:27 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:38:40 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ static void	copy_quote_spaces(const char *s, char *d, size_t *i, size_t *j)
 	bool	should_quote_space;
 
 	should_quote_space = false;
-	if (s[*i - 1] && s[*i - 2] && s[*i - 1] == 34 && s[*i - 2] == 34)
+	if (*i > 1 && s[*i - 1] == 34 && s[*i - 2] == 34)
 		should_quote_space = true;
-	else if (s[*i - 1] && s[*i - 2] && s[*i - 1] == 39 && s[*i - 2] == 39)
+	else if (*i > 1 && s[*i - 1] == 39 && s[*i - 2] == 39)
 		should_quote_space = true;
 	if (ft_isspace(s[*i]) && should_quote_space)
 	{

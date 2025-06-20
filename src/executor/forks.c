@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 20:15:43 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 12:25:44 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:15:10 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	wait_forks(pid_t **pids, size_t size, int *status)
 		if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
 			ft_putstr_fd("\n", STDOUT_FILENO);
 		else if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGQUIT)
-			ft_putstr_fd("Quit\n", STDOUT_FILENO);
+			ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
 		i++;
 	}
 }

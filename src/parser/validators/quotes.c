@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:03:02 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/29 22:34:59 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:49:10 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	check_quotes(t_shell *shell, int dquote, int quote)
 
 static size_t	count_and_skip_quoted(char *s, int c, size_t i, int *count)
 {
-	if ((i == 0) || (s[i - 1] && s[i - 1] != 92))
+	if ((i == 0) || (i > 0 && s[i - 1] != 92))
 	{
 		*count += 1;
 		if (ft_find_rawchar(s, c, &i))
@@ -48,9 +48,9 @@ bool	are_valid_quotes(t_shell *shell, const char *s)
 	dquote = 0;
 	while (s[i])
 	{
-		if (s[i] == 39 && (s[i - 1] || i == 0))
+		if (s[i] == 39 && (i >= 0))
 			i = count_and_skip_quoted((char *)s, 39, i, &quote);
-		else if (s[i] == 34 && (s[i - 1] || i == 0))
+		else if (s[i] == 34 && (i >= 0))
 			i = count_and_skip_quoted((char *)s, 34, i, &dquote);
 		i++;
 	}
