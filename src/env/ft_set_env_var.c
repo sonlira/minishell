@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgil-fer <bgil-fer@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 12:48:59 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/10 11:19:27 by bgil-fer         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:51:04 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*format(const char *name, const char *var_name)
 	char	*f_name;
 	char	*result;
 
+	if (!var_name)
+		return (ft_strdup(name));
 	f_name = ft_strjoin(name, "=");
 	result = ft_strjoin(f_name, var_name);
 	if (!result)
@@ -32,8 +34,11 @@ static bool	update_value(char ***env, const char *name, char *new_var)
 	i = 0;
 	while ((*env)[i])
 	{
-		if (variable_name_is_equal((*env)[i], name))
+		if (variable_name_is_equal((*env)[i], name) ||\
+		!ft_strcmp((*env)[i], name))
 		{
+			if (!ft_strcmp(name, new_var)) // Si nome y new_var son iguales no actualizar a sin valor
+				return (true);
 			free((*env)[i]);
 			(*env)[i] = new_var;
 			return (true);

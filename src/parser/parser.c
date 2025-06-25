@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:58 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/19 16:09:39 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:13:57 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,9 @@ static void	expand_and_prepare(t_shell *sh, t_cmd *cmd, char **split, size_t *i)
 		array_push(&cmd->delimiter, split[*i]);
 	}
 	else if (!ft_strcmp(split[*i], ">>") || !ft_strcmp(split[*i], ">"))
-	{
-		expander_dollar_args(sh, &split[++(*i)], true);
-		remove_quotes_and_backslashes(sh, &split[*i]);
-		array_unshift(&cmd->outfile, split[*i]);
-	}
+		process_redir_target(sh, cmd, &split[++(*i)], ">");
 	else if (!ft_strcmp(split[*i], "<"))
-	{
-		expander_dollar_args(sh, &split[++(*i)], true);
-		remove_quotes_and_backslashes(sh, &split[*i]);
-		array_push(&cmd->infile, split[*i]);
-	}
+		process_redir_target(sh, cmd, &split[++(*i)], "<");
 }
 
 static bool	check_redirection(t_shell *sh, t_cmd *cmd, char **split, size_t *i)
@@ -95,9 +87,7 @@ static bool	fill_cmd(t_shell *shell, t_cmd *cmd, char **split, size_t *i)
 		}
 		else
 		{
-			expander_dollar_args(shell, &split[*i], true);
-			remove_quotes_and_backslashes(shell, &split[*i]);
-			array_push(&cmd->args, split[*i]);
+			process_cmd_arg(shell, cmd, &split[*i]);
 			ft_set_string(&shell->last_arg, split[*i]);
 			(*i)++;
 		}

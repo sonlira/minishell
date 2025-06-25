@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:55:46 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/18 22:01:59 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:23:11 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,4 @@ bool	validate_and_parse_cmd(t_cmd *cmd)
 	return (true);
 }
 
-bool	has_non_whitespace(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] == 32)
-		i++;
-	if (s[i] && s[i] == 34 && s[i + 1] && s[i + 1] == 34)
-		return (false);
-	else if (s[i] && s[i] == 39 && s[i + 1] && s[i + 1] == 39)
-		return (false);
-	if (!s[i])
-		return (false);
-	return (true);
-}
 //void	unquote_and_expand(t_shell *shell, t_cmd *cmd, char *str)

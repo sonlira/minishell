@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:03:02 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/20 17:49:10 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:47:17 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ bool	are_valid_quotes(t_shell *shell, const char *s)
 	dquote = 0;
 	while (s[i])
 	{
-		if (s[i] == 39 && (i >= 0))
+		if (s[i] == 39)
 			i = count_and_skip_quoted((char *)s, 39, i, &quote);
-		else if (s[i] == 34 && (i >= 0))
+		else if (s[i] == 34)
 			i = count_and_skip_quoted((char *)s, 34, i, &dquote);
 		i++;
 	}

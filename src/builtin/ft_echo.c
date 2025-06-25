@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:51:48 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/26 23:42:10 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:47:51 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_echo(char **args)
 	while (args[i])
 	{
 		printf("%s", args[i]);
-		if (args[i + 1])
+		if (args[i + 1] && ft_strcmp(args[i + 1], " "))
 			printf(" ");
 		i++;
 	}

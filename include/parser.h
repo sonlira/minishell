@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:43:06 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/16 21:01:05 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:20:13 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ bool	has_non_whitespace(const char *s);
 bool	expander_dollar_args(t_shell *shell, char **s, bool expander_dquote);
 bool	remove_quotes_and_backslashes(t_shell *shell, char **s);
 bool	validate_and_parse_cmd(t_cmd *cmd);
+bool	process_redir_target(t_shell *shell, t_cmd *cmd, char **str, char *type);
+bool	process_cmd_arg(t_shell *shell, t_cmd *cmd, char **str);
 
 #endif

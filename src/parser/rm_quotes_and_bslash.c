@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 20:01:39 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/20 17:51:55 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:12:56 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ bool	remove_quotes_and_backslashes(t_shell *shell, char **s)
 	char		dst[BUFF_SIZE];
 	size_t		end;
 
-	if (!s || !*s || !are_valid_quotes(shell, *s))
+	if (!s || !*s || !(*s)[0] || !are_valid_quotes(shell, *s))
 		return (false);
 	init_iterator(&it);
 	while ((*s)[it.i])
 	{
-		if ((*s)[it.i] == 34 && (it.i >= 0))
+		if ((*s)[it.i] == 34)
 			proc_dquote(*s, dst, &it);
-		else if ((*s)[it.i] == 39 && (it.i >= 0))
+		else if ((*s)[it.i] == 39)
 		{
 			end = it.i;
 			ft_find_rawchar(*s, (*s)[it.i++], &end);

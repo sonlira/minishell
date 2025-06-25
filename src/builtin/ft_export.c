@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:59:19 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/05/30 15:56:56 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:45:28 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	is_validname(char *name)
 	return (true);
 }
 
-static int	export_vars(char **agrs, char ***env)
+static int	export_vars(char **args, char ***env)
 {
 	char	**var;
 	size_t	i;
@@ -36,17 +36,19 @@ static int	export_vars(char **agrs, char ***env)
 
 	i = 1;
 	error = 0;
-	while (agrs[i])
+	while (args[i])
 	{
-		var = ft_split(agrs[i], '=');
+		var = ft_split(args[i], '=');
 		if (!var)
 			return (EXIT_KO);
-		if (!is_validname(var[0]))
+		if (!is_validname(var[0]) || args[i][0] == '=')
 		{
 			ft_eprintf("minishell: export: ");
-			ft_eprintf("%s: is not a valid identifier\n", agrs[i]);
+			ft_eprintf("%s: is not a valid identifier\n", args[i]);
 			error++;
 		}
+		else if (ft_strchr(args[i], '=') && !var[1])
+			set_env_var(env, var[0], "");
 		else
 			set_env_var(env, var[0], var[1]);
 		ft_free_split(&var);
@@ -57,7 +59,7 @@ static int	export_vars(char **agrs, char ***env)
 
 int	ft_export(char **args, char ***env)
 {
-	if (!args[1])
+	if (!args[1] || !args[1][0])
 	{
 		print_sorted_env(*env);
 		return (EXIT_OK);

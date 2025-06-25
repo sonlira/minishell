@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:10:56 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/20 17:38:40 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:10:41 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static void	copy_quoted_content(const char *s, char *d, size_t *i, size_t *j)
 	end = *i;
 	skip_quoted = false;
 	ft_find_rawchar(s, s[*i], &end);
-	if (*i + 1 == end && s[*i - 1] && ft_isspace(s[*i - 1]))
+	if (*i + 1 == end && *i > 0 && ft_isspace(s[*i - 1]))
 		skip_quoted = true;
 	else if (*i + 1 == end && s[end + 1] && ft_isspace(s[end + 1]))
+		skip_quoted = true;
+	else if (*i + 1 == end && !s[end + 1])
 		skip_quoted = true;
 	if (skip_quoted)
 	{
@@ -71,9 +73,10 @@ static void	copy_quote_spaces(const char *s, char *d, size_t *i, size_t *j)
 	if (ft_isspace(s[*i]) && should_quote_space)
 	{
 		d[(*j)++] = 32; // poner espacio
-		d[(*j)++] = 39; // abrir comilla simple "'"
+		d[(*j)++] = 34; // abrir comilla simple "'"
 		d[(*j)++] = s[(*i)++]; // guardar el espacio
-		d[(*j)++] = 39; // cerrar comilla simple "'". Espacio protegido, oh yeah!
+		d[(*j)++] = 34; // cerrar comilla simple "'". Espacio protegido, oh yeah!
+		d[(*j)++] = 32; // poner espacio
 	}
 	else
 		d[(*j)++] = s[(*i)++];
@@ -95,11 +98,11 @@ bool	format_prompt_str(t_shell *shell, char **dest, const char *s)
 		{
 			if (s[i] == '$' && s[i + 1] && (s[i + 1] == 34 || s[i + 1] == 39))
 				i++;
-			else if ((s[i] == 34 || s[i] == 39) && (s[i - 1] || i == 0))
+			else if ((s[i] == 34 || s[i] == 39))
 				copy_quoted_content(s, dst, &i, &j);
 			else
 				copy_quote_spaces(s, dst, &i, &j);
-			if (is_operator(s[i]) && s[i - 1] == 92)
+			if (is_operator(s[i]) && i > 0 && s[i - 1] == 92)
 				dst[j++] = s[i++];
 		}
 		space_operators(s, dst, &i, &j);
