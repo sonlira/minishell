@@ -6,7 +6,7 @@
 /*   By: abaldelo <abaldelo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 18:55:46 by abaldelo          #+#    #+#             */
-/*   Updated: 2025/06/25 19:23:11 by abaldelo         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:25:25 by abaldelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	is_command_empty(t_cmd *cmd)
 {
 	if (!cmd || cmd->args)
 		return (false);
-	if (cmd->outfile || cmd->infile)
+	if (cmd->outfile || cmd->infile || !cmd->cmd)
 	{
 		array_push(&cmd->args, "echo");
 		array_push(&cmd->args, "-n");
